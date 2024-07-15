@@ -41,7 +41,7 @@ function Questions() {
             Authorization: `Bearer ${token}`
           }
         });
-        const preview = response.data[0];
+        const preview = response.data;
         console.log(preview);
         setPreview(preview);
       } catch (error) {
@@ -82,7 +82,7 @@ function Questions() {
                 <div className="question-date">{new Date(preview.date).toISOString().split('T')[0]}의 질문</div>
                 <div className="question-text">{preview.question}</div>
                 <div className="answer-date">{new Date(preview.date).toISOString().split('T')[0]}의 답변</div>
-                <div className="answer-text">{preview.answer}</div>
+                <div className="answer-text">{preview.keywords}</div>
                 <div className="color-box" style={{ backgroundColor: preview.color }}>
                   {(preview.color).toUpperCase()}
                 </div>
