@@ -1,17 +1,16 @@
 // src/components/ViewAnswer/ViewAnswer.js
 
-import React, { useState, useEffect, useContext } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import './ViewAnswer.css';
-import { AnswerContext } from '../../context/AnswerContext';
+
 
 const ViewAnswer = () => {
   const { answer_id } = useParams();
   const [answerDetails, setAnswerDetails] = useState(null);
   const [error, setError] = useState('');
-  const { selectedAnswerId } = useContext(AnswerContext);
-  const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchAnswerDetails = async () => {
