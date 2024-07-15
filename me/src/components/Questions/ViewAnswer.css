@@ -1,40 +1,120 @@
-/* src/components/ViewAnswer/ViewAnswer.css */
-
-.answer-details {
-    max-width: 600px;
-    margin: 0 auto;
+.answer-details-container {
+    max-width: 900px;
+    margin: 20px auto; /* 좌우에 20px 간격을 줌 */
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   }
   
-  .answer-details h2 {
+  .header-title {
     text-align: center;
-    margin-bottom: 20px;
+    font-size: 24px;
+    margin-bottom: 10px;
     color: #333;
   }
   
-  .answer-details p {
-    margin: 10px 0;
-    color: #555;
+  .sub-title {
+    font-size: 16px;
+    color: #666;
   }
   
-  .answer-details ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .answer-details ul li {
-    background-color: #f9f9f9;
-    margin: 5px 0;
-    padding: 10px;
-    border-radius: 4px;
-  }
-  
-  .error {
-    color: red;
+  .question-box {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 8px;
     text-align: center;
-    margin: 20px 0;
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .edit-section {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .color-picker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .answer-editor {
+    position: relative;
+    width: 100%;
+    max-width: 560px; /* 너비를 줄여서 color picker와 겹치지 않도록 조정 */
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    padding: 20px;
+    padding-right: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .answer-textarea {
+    width: 100%;
+    height: 200px;
+    margin-bottom: 20px;
+    padding: 10px;
+    
+    border: none;
+    border-radius: 4px;
+    background-color: #f0f0f0;
+    resize: none;
+  }
+  
+  .visibility-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  .color-box {
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .answer-text {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .date-text {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  .save-button {
+    background-color: transparent;
+    color: #333;
+    border: 2px solid #333;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    align-self: flex-end;
+  }
+  
+  .save-button:hover {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .edit-button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .edit-button:hover {
+    opacity: 0.9;
   }
   
