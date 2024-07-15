@@ -3,6 +3,7 @@ import { SketchPicker } from 'react-color';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+
 function PostAnswer() {
   const [answer, setAnswer] = useState('');
   const [keywords, setKeywords] = useState(['', '', '']);
@@ -13,7 +14,7 @@ function PostAnswer() {
 
   // Gemini Setting
   const { GoogleGenerativeAI } = require("@google/generative-ai");
-  const genAI = new GoogleGenerativeAI('AIzaSyCmKJPFn-7DA8UbfYAX7teZSHC5DlnrBvw');
+  const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GOOGLE_API_KEY);
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
 
   async function run() {
