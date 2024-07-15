@@ -29,7 +29,7 @@ function MyCalendar() {
         setAnswers(colorsData);
       } catch (error) {
         if (error.response.status === 403) {
-          alert("세션이 만료되었습니다. 다시 로그인 해주세요.");
+          alert("토큰이 만료되었습니다. 다시 로그인 해주세요.");
           navigate('/login');
         }
         console.error('Error fetching colors:', error);

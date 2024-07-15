@@ -46,7 +46,7 @@ function Questions() {
         setPreview(preview);
       } catch (error) {
         if (error.response.status === 403) {
-          alert("세션이 만료되었습니다. 다시 로그인 해주세요.");
+          alert("토큰이 만료되었습니다. 다시 로그인 해주세요.");
           navigate('/login');
         }
         console.error('Error fetching preview:', error);
@@ -77,18 +77,31 @@ function Questions() {
         <div className="content-box">
           <MyCalendar />
           <div className="text-box" onClick={handlePreviewClick} style={{ cursor: 'pointer' }}>
-            {preview && (
+            {preview ? (
+              selectedAnswerId ? (
               <div>
                 <div className="question-date">{new Date(preview.date).toISOString().split('T')[0]}의 질문</div>
+                <div className="line"></div>
                 <div className="question-text">{preview.question}</div>
                 <div className="answer-date">{new Date(preview.date).toISOString().split('T')[0]}의 답변</div>
-                <div className="answer-text">{preview.keywords}</div>
-                <div className="color-box" style={{ backgroundColor: preview.color }}>
-                  {(preview.color).toUpperCase()}
+                <div className="line"></div>
+                <div className="answer-contents">
+                  <div className="answer-text">
+                    {preview.keywords.map((keyword, index) => (
+                      <div key={index}>{keyword}</div>
+                    ))}
+                  </div>
+                  <div className="color-box" style={{ backgroundColor: preview.color }}>
+                    {(preview.color).toUpperCase()}
+                  </div>
                 </div>
               </div>
+              ) : (
+                <div className="centered">이 날엔 답변이 없어요</div>
+              )
+            ) : (
+              <div className="centered">날짜 선택하기</div>
             )}
-            {!preview && <div>클릭해서 수정하기</div>}
           </div>
         </div>
       </div>
