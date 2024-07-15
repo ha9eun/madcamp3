@@ -61,7 +61,9 @@ function Questions() {
   };
 
   const handlePreviewClick = () => {
-    navigate('/viewanswer');
+    if (selectedAnswerId) {
+      navigate(`/viewanswer/${selectedAnswerId}`);
+    }
   };
 
   return (
