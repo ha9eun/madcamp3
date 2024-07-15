@@ -42,6 +42,18 @@ function Social() {
           className="search-bar"
         />
       </div>
+      <div className="results-box">
+        {filteredUsers.length > 0 ? (
+          filteredUsers.map((user, index) => (
+            <div key={index} className="user-box">
+              <p>{user.user_id}</p>
+              <p>{user.nickname}</p>
+            </div>
+          ))
+        ) : (
+          searchTerm && <div className="no-user">유저가 없습니다.</div>
+        )}
+      </div>
       <div className="section">
         <div className="section-title">친구의 나무</div>
         <div className="card-grid">
@@ -58,18 +70,7 @@ function Social() {
           <div className="card"></div>
         </div>
       </div>
-      <div className="results-box">
-        {filteredUsers.length > 0 ? (
-          filteredUsers.map((user, index) => (
-            <div key={index} className="user-box">
-              <p>{user.user_id}</p>
-              <p>{user.nickname}</p>
-            </div>
-          ))
-        ) : (
-          searchTerm && <div className="no-user">유저가 없습니다.</div>
-        )}
-      </div>
+      
     </div>
   );
 }

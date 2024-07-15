@@ -5,13 +5,15 @@ li, p, h1, h2 {margin: 0;padding: 0;}
     max-width: 900px;
     margin: 0 auto;
     padding-bottom: 0px;
+    position: relative;
 }
 
 .search-container {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 10px;
   margin-top: 20px;
+  margin-bottom: 10px;
+  
 }
 
 .search-bar {
@@ -19,19 +21,15 @@ li, p, h1, h2 {margin: 0;padding: 0;}
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  position:relative;
 }
 
 .results-box {
-  max-height: 200px;
+  max-height: 50px;
   width: 220px;
-  overflow-y: auto;
-  border: 1px solid #ccc;
-  border-radius: 4px;
   background-color: #fff;
-  position: absolute;
-  top: 140px;
-  right: 65px;
-  z-index: 1000;
+  position: absolute; 
+  right: 0;
 }
 
 .user-box {
