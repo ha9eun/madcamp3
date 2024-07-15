@@ -8,7 +8,7 @@ li, p, h1, h2 {margin: 0;padding: 0;}
 }
 
 .question-list {
-    text-align: center;
+    text-align: left; /* 왼쪽 정렬 */
     margin-top: 20px;
     margin-bottom: 40px;
     padding-top: 20px;
@@ -46,30 +46,66 @@ li, p, h1, h2 {margin: 0;padding: 0;}
 }
 
 .answer-list {
-    text-align: center;
+    text-align: left; /* 왼쪽 정렬 */
     margin-top: 20px;
-    margin-bottom: 40px;
-    /* padding-top: 20px; */
+    margin-bottom: 20px;
 }
 
 .answer-list h2 {
-    display: flex;
-    justify-content: space-between; /* Aligns items to the left and right */
-    align-items: center;
     font-size: 24px;
     margin-bottom: 10px;
 }
 
-.answer_container {
-
+.answer-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start; /* 왼쪽 정렬 */
 }
 
 .answer-box {
+    flex: 1 1 calc(20% - 10px); /* 5개씩 표시 */
+    max-width: calc(20% - 10px); /* 최대 너비 설정 */
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    height: 150px; /* 정사각형으로 만들기 위해 높이를 설정 */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
+.answer-box p {
+    margin: 5px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.answer-box p.question {
+    white-space: nowrap; /* 줄 바꿈 없이 한 줄로 표시 */
+    font-size: 12px;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis; /* 중간 줄임표 */
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.answer-box p.answer {
+    white-space: normal; /* 줄 바꿈 허용 */
+    font-size: 12px;
+}
+
+h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
 }
 
 .random-trees {
-    text-align: center;
+    text-align: left; /* 왼쪽 정렬 */
     margin-top: 20px;
     margin-bottom: 40px;
     padding-top: 20px;
@@ -89,9 +125,15 @@ li, p, h1, h2 {margin: 0;padding: 0;}
 }
 
 .tree-container {
-
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .tree-box {
-
+    width: 30%;
+    height: 100px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
 }
