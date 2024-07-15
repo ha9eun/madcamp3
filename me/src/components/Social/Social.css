@@ -60,13 +60,12 @@ li, p, h1, h2 {margin: 0;padding: 0;}
 .card-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 75px;
-  justify-content: first baseline;
+  justify-content: space-between;
   margin-bottom: 20px;
 }
 
 .card {
-  width: 250px;
+  width: 275px;
   height: 200px;
   background-color: #ccc;
   border-radius: 8px;
