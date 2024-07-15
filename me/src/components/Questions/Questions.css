@@ -71,26 +71,68 @@ li, p, h1, h2 {margin: 0;padding: 0;}
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
   
   .question-date, .answer-date {
     margin: 10px 0;
+    text-align: center;
     font-weight: bold;
   }
+
+  .line {
+    width: 450px;
+    border-bottom: 1px solid #000000;
+    margin: 10px 0;
+  }
   
-  .question-text, .answer-text {
-    margin-bottom: 20px;
+  .question-text {
+    align-items: center;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .answer-contents {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 20px;
+    /* box-sizing: border-box; */
+    /* padding-bottom: 20px; */
+    /* flex-direction: row;
+    align-items: center;
+    justify-content: center; */
+  }
+
+  .answer-text {
+    font-size: 18pt;
+    margin: auto;
+    text-align: center;
+    /* margin-right: 10px; */
+    margin-top: 10px;
+    margin-bottom: 30px;
+    line-height: 2;
   }
   
   .color-box {
-    width: 100px;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 120px;
+    height: 150px;
+    margin-left: 25px;
+    /* display: flex; */
+    padding-top: 15px;
+    padding-right: 15px;
+    /* justify-content: flex-end;
+    align-items: flex-end; */
+    text-align: right;
     color: white;
     border-radius: 10px;
+  }
+  
+  .text-box .centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* 부모 요소의 높이를 100%로 설정 */
   }
   
   @media (max-width: 768px) {
