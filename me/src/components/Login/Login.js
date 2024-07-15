@@ -1,23 +1,38 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
 import CryptoJS from 'crypto-js';
-import '../App.css';
+import '../../App.css';
 
 function Login() {
-  const [username, setUsername] = useState('');
+  const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const users = JSON.parse(localStorage.getItem('users')) || [];
+
+    // 비밀번호 해시 처리
     const hashedPassword = CryptoJS.SHA256(password).toString();
-    const user = users.find(user => user.username === username && user.password === hashedPassword);
-    if (user) {
-      localStorage.setItem('currentUser', JSON.stringify({ username: user.username }));
-      navigate('/main');
-    } else {
-      alert('Invalid credentials');
+
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/login`, {
+        userId,
+        //password
+        password: hashedPassword,
+      });
+
+      if (response.status === 200) {
+        localStorage.setItem('currentUser', JSON.stringify({ userId }));
+        localStorage.setItem('token', response.data.token);
+        console.log(localStorage.getItem('token'));
+        navigate('/');
+      } else {
+        alert(response.data.message);
+      }
+    } catch (error) {
+      console.error('There was an error!', error);
+      alert('There was an error logging in. Please try again.');
     }
   };
 
@@ -35,9 +50,9 @@ function Login() {
         <form onSubmit={handleLogin}>
           <input
             type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            placeholder="UserId"
+            value={userId}
+            onChange={(e) => setUserId(e.target.value)}
           />
           <input
             type="password"
