@@ -8,7 +8,7 @@ import { AnswerContext } from '../../context/AnswerContext';
 function Questions() {
   const [question, setQuestion] = useState('');
   const [preview, setPreview] = useState('');
-  const { selectedAnswerId } = useContext(AnswerContext);
+  const { selectedAnswerId, setSelectedAnswerId } = useContext(AnswerContext); // setSelectedAnswerId 추가
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,6 +28,13 @@ function Questions() {
 
     fetchQuestion();
   }, []);
+
+  useEffect(() => {
+    // Initialize selectedAnswerId to empty when component mounts
+    if (selectedAnswerId === undefined) {
+      setSelectedAnswerId('');
+    }
+  }, [setSelectedAnswerId, selectedAnswerId]);
 
   useEffect(() => {
     // Fetch preview from the server
