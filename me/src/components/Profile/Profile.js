@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
 import { useNavigate } from 'react-router-dom';
+import './Profile.css';
 
 function Profile() {
   const [userInfo, setUserInfo] = useState({
@@ -96,58 +97,62 @@ function Profile() {
   };
 
   return (
-    <div>
-      <h2>Profile</h2>
-      {isEditing ? (
-        <form onSubmit={handleSave}>
-          <div>
-            <label>User ID: </label>
-            <span>{userInfo.user_id}</span>
+    <div className="profile-wrapper">
+      <div className="profile-container">
+        <h2>프로필</h2>
+        {isEditing ? (
+          <form onSubmit={handleSave} className="profile-form">
+            <div className="form-group">
+              <label>ID</label>
+              <span>{userInfo.user_id}</span>
+            </div>
+            <div className="form-group">
+              <label>현재 비밀번호</label>
+              <input
+                type="password"
+                name="currentPassword"
+                value={currentPassword}
+                onChange={handlePasswordChange}
+              />
+              {passwordError && <span className="error-message">{passwordError}</span>}
+            </div>
+            <div className="form-group">
+              <label>새로운 비밀번호</label>
+              <input
+                type="password"
+                name="newPassword"
+                value={newPassword}
+                onChange={handlePasswordChange}
+              />
+            </div>
+            <div className="form-group">
+              <label>닉네임</label>
+              <input
+                type="text"
+                name="nickname"
+                value={userInfo.nickname}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="button-group">
+              <button type="submit" className="btn btn-save">저장</button>
+              <button type="button" className="btn btn-cancel" onClick={() => setIsEditing(false)}>취소</button>
+            </div>
+          </form>
+        ) : (
+          <div className="profile-view">
+            <div className="form-group">
+              <label>ID</label>
+              <span>{userInfo.user_id}</span>
+            </div>
+            <div className="form-group">
+              <label>닉네임</label>
+              <span>{userInfo.nickname}</span>
+            </div>
+            <button className="btn btn-edit" onClick={() => setIsEditing(true)}>수정</button>
           </div>
-          <div>
-            <label>Current Password: </label>
-            <input
-              type="password"
-              name="currentPassword"
-              value={currentPassword}
-              onChange={handlePasswordChange}
-            />
-            {passwordError && <span style={{ color: 'red' }}>{passwordError}</span>}
-          </div>
-          <div>
-            <label>New Password: </label>
-            <input
-              type="password"
-              name="newPassword"
-              value={newPassword}
-              onChange={handlePasswordChange}
-            />
-          </div>
-          <div>
-            <label>Nickname: </label>
-            <input
-              type="text"
-              name="nickname"
-              value={userInfo.nickname}
-              onChange={handleChange}
-            />
-          </div>
-          <button type="submit">Save</button>
-          <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>
-        </form>
-      ) : (
-        <div>
-          <div>
-            <label>User ID: </label>
-            <span>{userInfo.user_id}</span>
-          </div>
-          <div>
-            <label>Nickname: </label>
-            <span>{userInfo.nickname}</span>
-          </div>
-          <button onClick={() => setIsEditing(true)}>Edit</button>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
