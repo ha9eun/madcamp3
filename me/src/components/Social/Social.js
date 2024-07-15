@@ -33,13 +33,31 @@ function Social() {
 
   return (
     <div className="social-container">
-      <input
-        type="text"
-        placeholder="아이디로 검색"
-        value={searchTerm}
-        onChange={handleSearch}
-        className="search-bar"
-      />
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder="아이디로 검색"
+          value={searchTerm}
+          onChange={handleSearch}
+          className="search-bar"
+        />
+      </div>
+      <div className="section">
+        <div className="section-title">친구의 나무</div>
+        <div className="card-grid">
+          <div className="card"></div>
+          <div className="card"></div>
+          <div className="card"></div>
+        </div>
+      </div>
+      <div className="section">
+        <div className="section-title">익명의 나무</div>
+        <div className="card-grid">
+          <div className="card"></div>
+          <div className="card"></div>
+          <div className="card"></div>
+        </div>
+      </div>
       <div className="results-box">
         {filteredUsers.length > 0 ? (
           filteredUsers.map((user, index) => (
