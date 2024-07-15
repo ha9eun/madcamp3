@@ -48,11 +48,16 @@ const ViewAnswer = () => {
     return <div>Loading...</div>;
   }
 
+  // 날짜 형식 변환
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    return new Date(dateString).toLocaleDateString('ko-KR', options);
+  };
+
   return (
     <div className="answer-details">
       <h2>Answer Details</h2>
-      <p><strong>User ID:</strong> {answerDetails.user_id}</p>
-      <p><strong>Date:</strong> {answerDetails.date}</p>
+      <p><strong>Date:</strong> {formatDate(answerDetails.date)}</p>
       <p><strong>Question:</strong> {answerDetails.question}</p>
       <p><strong>Answer:</strong> {answerDetails.answer}</p>
       <p><strong>Color:</strong> {answerDetails.color}</p>
