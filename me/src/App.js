@@ -13,6 +13,7 @@ import Navbar from './components/Navbar';
 import Social from './components/Social/Social';
 import './App.css';
 
+
 function PrivateRoute({ component: Component }) {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
   return currentUser ? <Component /> : <Navigate to="/login" />;

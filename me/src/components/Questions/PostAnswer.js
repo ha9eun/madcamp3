@@ -1,35 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { SketchPicker } from 'react-color';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function PostAnswer() {
   const [answer, setAnswer] = useState('');
+  const [keywords, setKeywords] = useState(['', '', '']);
   const [color, setColor] = useState('#fff');
   const [visibility, setVisibility] = useState('public');
+  const [readyToSubmit, setReadyToSubmit] = useState(false);
   const navigate = useNavigate();
 
-  const handleAnswerChange = (e) => {
-    setAnswer(e.target.value);
-  };
+  // Gemini Setting
+  const { GoogleGenerativeAI } = require("@google/generative-ai");
+  const genAI = new GoogleGenerativeAI('AIzaSyCmKJPFn-7DA8UbfYAX7teZSHC5DlnrBvw');
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
 
-  const handleColorChange = (color) => {
-    setColor(color.hex);
-  };
+  async function run() {
+    const prompt = "Extract three keywords from the following text. Just give me the keywords without any explanation"
 
-  const handleVisibilityChange = (e) => {
-    setVisibility(e.target.value);
-  };
+    const result = await model.generateContent(`${prompt} ${answer}`);
+    const response = result.response;
+    const text = response.text();
+    console.log(text);
+    const textarray = text.split(',').map(keyword => keyword.trim())
+    setKeywords(textarray);
+  }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = useCallback(async () => {
     const token = localStorage.getItem('token');
+    setReadyToSubmit(false);
+    console.log(keywords);
 
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/answers`, {
         answer,
         color,
-        visibility
+        visibility,
+        keywords,
       }, {
         headers: {
           Authorization: `Bearer ${token}`
@@ -50,12 +58,36 @@ function PostAnswer() {
       console.error('Error submitting answer:', error);
       alert('There was an error submitting your answer.');
     }
+  }, [answer, color, visibility, keywords, navigate]);
+
+  useEffect(() => {
+    if (readyToSubmit) {
+      handleSubmit();
+    }
+  }, [keywords, readyToSubmit, handleSubmit]);
+
+  const handleAnswerChange = (e) => {
+    setAnswer(e.target.value);
+  };
+
+  const handleColorChange = (color) => {
+    setColor(color.hex);
+  };
+
+  const handleVisibilityChange = (e) => {
+    setVisibility(e.target.value);
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    await run();
+    setReadyToSubmit(true);
   };
 
   return (
     <div>
       <h2>Answer the Question</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleFormSubmit}>
         <div>
           <label>Answer:</label>
           <textarea 
