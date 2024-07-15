@@ -1,0 +1,112 @@
+.react-calendar {
+    border: none;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 390px;
+    width: 100%;
+    max-width: 500px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.react-calendar__navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+    padding: 1rem;
+    padding-top: 2.1rem;
+}
+
+.react-calendar__navigation__label {
+    font-size: 1rem;
+}
+
+.react-calendar__month-view__weekdays__weekday {
+    height: 40px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #000;
+  }
+
+.react-calendar__month-view__weekdays__weekday abbr {
+    text-decoration: none;
+}
+
+.react-calendar__tile {
+    position: relative;
+    height: 50px;
+    max-width: 100%;
+    text-align: center;
+    padding: 1rem;
+    background: none;
+    border: 1px solid transparent;
+    transition: background 0.3s, border 0.3s;
+    z-index: 1; /* 날짜 텍스트의 z-index 설정 */
+    font-size: 0.9rem;
+    color: black;
+    border-radius: 50%;
+}
+
+.react-calendar__tile:enabled:hover { 
+    background: #e1e1e1;
+    /* border: 1px solid #002366; */
+    border-radius: 50%;
+}
+
+.react-calendar__tile:enabled:focus {
+    background: white;
+    border: 2px solid #bcbcbc;
+    border-radius: 50%;
+}
+
+.react-calendar__tile--now {
+    color: rgb(252, 154, 34) !important;
+    font-weight: bold;
+}
+
+.react-calendar__tile--active {
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+    color: black;
+}
+
+.custom-tile {
+    border-radius: 50%;
+    background-color: inherit;
+    color: white;
+    padding: 5px; /* 내부 패딩을 추가하여 색깔 동그라미 크기 조절 */
+}
+
+.tile-content {
+    position: absolute;
+    top: 5px; /* 패딩에 맞추어 위치 조정 */
+    left: 5px; /* 패딩에 맞추어 위치 조정 */
+    width: calc(100% - 10px); /* 패딩에 맞추어 너비 조정 */
+    height: calc(100% - 10px); /* 패딩에 맞추어 높이 조정 */
+    z-index: -1; /* 배경색의 z-index 설정 */
+    border-radius: 50%;
+    background-color: inherit;
+}
+
+.custom-tile abbr {
+    color: white !important;
+}
+
+.calendar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+}
+
+.calendar-wrapper {
+    width: 100%;
+    max-width: 500px;
+}

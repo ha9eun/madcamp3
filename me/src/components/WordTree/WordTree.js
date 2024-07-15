@@ -67,7 +67,7 @@ function WordTree() {
             style={{
               position: 'absolute',
               left: '50%',
-              bottom: `${index * 60 + -500}px`,
+              bottom: `${index * 55 + -500}px`,
               transform: 'translateX(-50%) rotate(90deg)',
               transformOrigin: 'top 0',
               fontSize: '18px',
