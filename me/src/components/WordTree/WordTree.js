@@ -159,105 +159,121 @@ function WordTree() {
     <div className="wordtree-main" ref={captureRef}>
       <button onClick={captureScreenshot}>Capture</button>
       <div className="wordtree-container">
-//         <div style={{ textAlign: 'center', backgroundColor: '#fff', padding: '20px', display: 'inline-block', height: '450px' }}>
-//           <div style={{ position: 'relative', width: '600px', margin: '0 auto' }}>
-//             <canvas
-//               ref={canvasRef}
-//               width={1200} // Double the canvas width
-//               height={canvasHeight * 2} // 캔버스 높이를 두 배로 설정
-//               style={{ position: 'absolute', top: 50, left: 0, width: '600px', height: `${canvasHeight}px` }} // Scale down to fit the container
-//             />
-//             {initialWords.map((word, index) => (
-//               <div
-//                 key={index}
-//                 style={{
-//                   position: 'absolute',
-//                   left: '50%',
-//                   top: `${index * 55 + Math.sqrt(Math.max(0, canvasHeight - 100)) * 15 + 110}px`,
-//                   transform: 'translateX(-50%) rotate(90deg)',
-//                   transformOrigin: 'top 0',
-//                   fontSize: '18px',
-//                   fontFamily: 'Times, serif',
-//                   color: 'black',
-//                   whiteSpace: 'nowrap',
-//                 }}
-//               >
-//                 {word}
-//               </div>
-//             ))}
-//             <img
-//               src={randomImageSrc}
-//               alt=''
-//               onLoad={() => captureScreenshot()} // 이미지가 로드된 후 캡쳐 시도
-//               style={{
-//                 width: '750px',
-//                 position: 'absolute',
-//                 left: '50%',
-//                 top: `${2 * 55 + Math.sqrt(Math.max(0, canvasHeight - 100)) * 15 + 150}px`,
-//                 transform: 'translateX(-50%)',
-//                 transformOrigin: 'top 0',
-//               }}
-//             />
-    <div style={{ textAlign: 'center' }}>
-      {popupVisible && (
-        <WordClick
-          word={selectedWord.word}
-          answerId={selectedWord.answerId}
-          onClose={() => setPopupVisible(false)}
-        />
-      )}
-      <div style={{ position: 'relative', width: '600px', margin: '0 auto' }}>
-        <canvas
-          ref={canvasRef}
-          width={1200}
-          height={canvasHeight * 2}
-          style={{ position: 'absolute', top: 50, left: 0, width: '600px', height: `${canvasHeight}px` }}
-        />
-        {initialWords.map((word, index) => (
-          <div
-            key={index}
-            style={{
-              position: 'absolute',
-              left: '50%',
-              top: `${index * 55 + Math.sqrt(Math.max(0, canvasHeight - 100)) * 15 + 110}px`,
-              transform: 'translateX(-50%) rotate(90deg)',
-              transformOrigin: 'top 0',
-              fontSize: '18px',
-              fontFamily: 'Times, serif',
-              color: 'black',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            {word}
+        {/* 주석처리된 부분 시작 */}
+        {/* 
+        <div style={{ textAlign: 'center', backgroundColor: '#fff', padding: '20px', display: 'inline-block', height: '450px' }}>
+          <div style={{ position: 'relative', width: '600px', margin: '0 auto' }}>
+            <canvas
+              ref={canvasRef}
+              width={1200} // Double the canvas width
+              height={canvasHeight * 2} // 캔버스 높이를 두 배로 설정
+              style={{ position: 'absolute', top: 50, left: 0, width: '600px', height: `${canvasHeight}px` }} // Scale down to fit the container
+            />
+            {initialWords.map((word, index) => (
+              <div
+                key={index}
+                style={{
+                  position: 'absolute',
+                  left: '50%',
+                  top: `${index * 55 + Math.sqrt(Math.max(0, canvasHeight - 100)) * 15 + 110}px`,
+                  transform: 'translateX(-50%) rotate(90deg)',
+                  transformOrigin: 'top 0',
+                  fontSize: '18px',
+                  fontFamily: 'Times, serif',
+                  color: 'black',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {word}
+              </div>
+            ))}
+            <img
+              src={randomImageSrc}
+              alt=''
+              onLoad={() => captureScreenshot()} // 이미지가 로드된 후 캡쳐 시도
+              style={{
+                width: '750px',
+                position: 'absolute',
+                left: '50%',
+                top: `${2 * 55 + Math.sqrt(Math.max(0, canvasHeight - 100)) * 15 + 150}px`,
+                transform: 'translateX(-50%)',
+                transformOrigin: 'top 0',
+              }}
+            />
+            <div
+              style={{
+                position: 'absolute',
+                left: '50%',
+                top: `${2 * 55 + Math.sqrt(Math.max(0, canvasHeight - 100)) * 15 + 165}px`,
+                transform: 'translateX(-50%)',
+                width: '560px',
+                height: 'auto',
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+              }}
+            >
+              {centerOutColors.map((color, i) => (
+                <div
+                  key={i}
+                  style={{
+                    width: '28px',
+                    height: '28px',
+                    borderRadius: '8px',
+                    backgroundColor: color,
+                  }}
+                ></div>
+              ))}
+            </div>
           </div>
-        ))}
-        <img
-          src={randomImageSrc}
-          alt=''
-          style={{
-            width: '750px',
-            position: 'absolute',
-            left: '50%',
-            top: `${2 * 55 + Math.sqrt(Math.max(0, canvasHeight - 100)) * 15 + 150}px`,
-            transform: 'translateX(-50%)',
-            transformOrigin: 'top 0',
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            left: '50%',
-            top: `${2 * 55 + Math.sqrt(Math.max(0, canvasHeight - 100)) * 15 + 165}px`,
-            transform: 'translateX(-50%)',
-            width: '560px',
-            height: 'auto',
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-          }}
-        >
-          {centerOutColors.map((color, i) => (
-// >>>>>>> main
+        </div>
+        */}
+        {/* 주석처리된 부분 끝 */}
+        <div style={{ textAlign: 'center' }}>
+          {popupVisible && (
+            <WordClick
+              word={selectedWord.word}
+              answerId={selectedWord.answerId}
+              onClose={() => setPopupVisible(false)}
+            />
+          )}
+          <div style={{ position: 'relative', width: '600px', margin: '0 auto' }}>
+            <canvas
+              ref={canvasRef}
+              width={1200}
+              height={canvasHeight * 2}
+              style={{ position: 'absolute', top: 50, left: 0, width: '600px', height: `${canvasHeight}px` }}
+            />
+            {initialWords.map((word, index) => (
+              <div
+                key={index}
+                style={{
+                  position: 'absolute',
+                  left: '50%',
+                  top: `${index * 55 + Math.sqrt(Math.max(0, canvasHeight - 100)) * 15 + 110}px`,
+                  transform: 'translateX(-50%) rotate(90deg)',
+                  transformOrigin: 'top 0',
+                  fontSize: '18px',
+                  fontFamily: 'Times, serif',
+                  color: 'black',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {word}
+              </div>
+            ))}
+            <img
+              src={randomImageSrc}
+              alt=''
+              style={{
+                width: '750px',
+                position: 'absolute',
+                left: '50%',
+                top: `${2 * 55 + Math.sqrt(Math.max(0, canvasHeight - 100)) * 15 + 150}px`,
+                transform: 'translateX(-50%)',
+                transformOrigin: 'top 0',
+              }}
+            />
             <div
               style={{
                 position: 'absolute',
@@ -298,7 +314,7 @@ function WordTree() {
         }} />
       )}
     </div>
-  );
+  );  
 }
 
 export default WordTree;
