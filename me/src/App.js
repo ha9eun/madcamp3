@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation, Navigate } from 'react-router-dom';
 import { AnswerProvider } from './context/AnswerContext';
-// import MyCalendar from './components/Calendar/Calendar';
 import Login from './components/Login/Login';
 import Signup from './components/Signup/Signup';
 import Main from './components/Main/Main';
@@ -27,18 +26,20 @@ function App() {
   return (
     <div className="App">
       {!hideNavbarPaths.includes(location.pathname) && <Navbar />}
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/" element={<PrivateRoute component={Main} />} />
-        <Route path="/questions" element={<PrivateRoute component={Questions} />} />
-        <Route path="/postanswer" element={<PrivateRoute component={PostAnswer} />} />
-        <Route path="/wordtree" element={<PrivateRoute component={WordTree} />} />
-        <Route path="/social" element={<PrivateRoute component={Social} />} />
-        <Route path="/profile" element={<PrivateRoute component={Profile} />} />
-        <Route path="/viewanswer/:answer_id" element={<PrivateRoute component={ViewAnswer} />} />
-        <Route path="/friend/:friendId" element={<FriendPage />} />
-      </Routes>
+      <div className="app-main">
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/" element={<PrivateRoute component={Main} />} />
+          <Route path="/questions" element={<PrivateRoute component={Questions} />} />
+          <Route path="/postanswer" element={<PrivateRoute component={PostAnswer} />} />
+          <Route path="/wordtree" element={<PrivateRoute component={WordTree} />} />
+          <Route path="/social" element={<PrivateRoute component={Social} />} />
+          <Route path="/profile" element={<PrivateRoute component={Profile} />} />
+          <Route path="/viewanswer/:answer_id" element={<PrivateRoute component={ViewAnswer} />} />
+          <Route path="/friend/:friendId" element={<FriendPage />} />
+        </Routes>
+      </div>
     </div>
   );
 }

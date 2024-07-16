@@ -1,18 +1,15 @@
-/* CSS 파일 */
-/* .App {
-    height: 500px;
+/* CSS 초기화 */
+* {
     margin: 0;
     padding: 0;
-  } */
+    box-sizing: border-box;
+  }
   
-.main {
-    width: 100%;
-    /* height: 100vh; */
-    background-color: yellow;
-    /* display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding-bottom: 0px; */
-}
-  
+
+
+.wordtree-main {
+    width: 50%;
+    text-align: center;
+    padding: 20px;
+    display: inline-block;
+  }

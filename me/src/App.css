@@ -1,5 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .login-container {
@@ -130,4 +139,11 @@
 .questions-container {
   padding: 20px;
   text-align: center;
+}
+
+.app-main {
+  width: 100%;
+  background-color: #f0f0f0;
+  padding: 20px;
+  flex: 1;
 }
