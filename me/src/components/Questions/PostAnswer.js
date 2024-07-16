@@ -18,7 +18,7 @@ function PostAnswer() {
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
 
   async function run() {
-    const prompt = "Extract three keywords from the following text. Just give me the keywords without any explanation"
+    const prompt = "Extract three keywords from the following text. Just give me the Korean keywords without any explanation, as 'key1, key2, key3'"
 
     const result = await model.generateContent(`${prompt} ${answer}`);
     const response = result.response;
