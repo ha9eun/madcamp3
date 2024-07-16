@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Social.css';
 
@@ -6,7 +7,7 @@ function Social() {
   const [searchTerm, setSearchTerm] = useState('');
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
-  // const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     // 서버에서 모든 유저를 불러오기
@@ -31,6 +32,10 @@ function Social() {
     }
   };
 
+  const handleUserClick = (userId) => {
+    navigate(`/friend/${userId}`);
+  };
+
   return (
     <div className="social-container">
       <div className="search-container">
@@ -45,7 +50,7 @@ function Social() {
       <div className="results-box">
         {filteredUsers.length > 0 ? (
           filteredUsers.map((user, index) => (
-            <div key={index} className="user-box">
+            <div key={index} className="user-box" onClick={() => handleUserClick(user.user_id)}>
               <p>{user.user_id}</p>
               <p>{user.nickname}</p>
             </div>
@@ -70,10 +75,8 @@ function Social() {
           <div className="card"></div>
         </div>
       </div>
-      
     </div>
   );
 }
-
 
 export default Social;
