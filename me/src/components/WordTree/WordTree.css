@@ -1,0 +1,18 @@
+/* CSS 파일 */
+/* .App {
+    height: 500px;
+    margin: 0;
+    padding: 0;
+  } */
+  
+.main {
+    width: 100%;
+    /* height: 100vh; */
+    background-color: yellow;
+    /* display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 0px; */
+}
+  
