@@ -12,4 +12,11 @@
     text-align: center;
     padding: 20px;
     display: inline-block;
+    background-color: yellow;
   }
+
+.wordtree-container {
+    background-color: white;
+    display: 'inline-block';
+    height: '450px';
+}
