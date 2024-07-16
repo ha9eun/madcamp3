@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import WordCloudLib from 'wordcloud';
+import html2canvas from 'html2canvas';
 import { useNavigate } from 'react-router-dom';
+import './WordTree.css';
 import WordClick from './WordClick'; // 팝업 컴포넌트 임포트
 
 function WordTree() {
@@ -11,7 +13,9 @@ function WordTree() {
   const [colors, setColors] = useState([]);
   const [selectedWord, setSelectedWord] = useState(null);
   const [popupVisible, setPopupVisible] = useState(false);
+
   const canvasRef = useRef(null);
+  const captureRef = useRef(null);
   const navigate = useNavigate();
 
   const imageSources = [
@@ -31,7 +35,6 @@ function WordTree() {
           }
         });
         const data = response.data;
-
         const filteredData = data.filter(item => Array.isArray(item.keywords) && item.keywords.length === 3);
         const fetchedWords = filteredData.flatMap(item => item.keywords.map(keyword => [keyword, item.answer_id]));
         setWords(fetchedWords);
@@ -69,6 +72,7 @@ function WordTree() {
         console.error('Error fetching colors:', error);
       }
     };
+
     fetchColors();
   }, [navigate]);
 
@@ -132,7 +136,68 @@ function WordTree() {
 
   const centerOutColors = generateCenterOutColors(colors);
 
+  const captureScreenshot = () => {
+    if (captureRef.current) {
+      html2canvas(captureRef.current, {
+        useCORS: true,
+        scale: 2,
+        logging: true,
+        scrollX: 0,
+        scrollY: 0,
+        windowWidth: document.documentElement.offsetWidth,
+        windowHeight: document.documentElement.offsetHeight,
+      }).then(canvas => {
+        const link = document.createElement('a');
+        link.href = canvas.toDataURL('image/png');
+        link.download = 'capture.png';
+        link.click();
+      });
+    }
+  };
+
   return (
+    <div className="wordtree-main" ref={captureRef}>
+      <button onClick={captureScreenshot}>Capture</button>
+      <div className="wordtree-container">
+//         <div style={{ textAlign: 'center', backgroundColor: '#fff', padding: '20px', display: 'inline-block', height: '450px' }}>
+//           <div style={{ position: 'relative', width: '600px', margin: '0 auto' }}>
+//             <canvas
+//               ref={canvasRef}
+//               width={1200} // Double the canvas width
+//               height={canvasHeight * 2} // 캔버스 높이를 두 배로 설정
+//               style={{ position: 'absolute', top: 50, left: 0, width: '600px', height: `${canvasHeight}px` }} // Scale down to fit the container
+//             />
+//             {initialWords.map((word, index) => (
+//               <div
+//                 key={index}
+//                 style={{
+//                   position: 'absolute',
+//                   left: '50%',
+//                   top: `${index * 55 + Math.sqrt(Math.max(0, canvasHeight - 100)) * 15 + 110}px`,
+//                   transform: 'translateX(-50%) rotate(90deg)',
+//                   transformOrigin: 'top 0',
+//                   fontSize: '18px',
+//                   fontFamily: 'Times, serif',
+//                   color: 'black',
+//                   whiteSpace: 'nowrap',
+//                 }}
+//               >
+//                 {word}
+//               </div>
+//             ))}
+//             <img
+//               src={randomImageSrc}
+//               alt=''
+//               onLoad={() => captureScreenshot()} // 이미지가 로드된 후 캡쳐 시도
+//               style={{
+//                 width: '750px',
+//                 position: 'absolute',
+//                 left: '50%',
+//                 top: `${2 * 55 + Math.sqrt(Math.max(0, canvasHeight - 100)) * 15 + 150}px`,
+//                 transform: 'translateX(-50%)',
+//                 transformOrigin: 'top 0',
+//               }}
+//             />
     <div style={{ textAlign: 'center' }}>
       {popupVisible && (
         <WordClick
@@ -192,16 +257,33 @@ function WordTree() {
           }}
         >
           {centerOutColors.map((color, i) => (
+// >>>>>>> main
             <div
-              key={i}
               style={{
-                width: '28px',
-                height: '28px',
-                borderRadius: '8px',
-                backgroundColor: color,
+                position: 'absolute',
+                left: '50%',
+                top: `${2 * 55 + Math.sqrt(Math.max(0, canvasHeight - 100)) * 15 + 165}px`,
+                transform: 'translateX(-50%)',
+                width: '560px',
+                height: 'auto',
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
               }}
-            ></div>
-          ))}
+            >
+              {centerOutColors.map((color, i) => (
+                <div
+                  key={i}
+                  style={{
+                    width: '28px',
+                    height: '28px',
+                    borderRadius: '8px',
+                    backgroundColor: color,
+                  }}
+                ></div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
       {popupVisible && (

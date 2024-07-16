@@ -1,0 +1,15 @@
+/* CSS 초기화 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+
+
+.wordtree-main {
+    width: 50%;
+    text-align: center;
+    padding: 20px;
+    display: inline-block;
+  }
