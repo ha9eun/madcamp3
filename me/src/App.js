@@ -13,7 +13,7 @@ import Social from './components/Social/Social';
 import './App.css';
 import ViewAnswer from './components/Questions/ViewAnswer';
 import FriendPage from './components/Social/FriendPage';
-
+import WordClick from './components/WordTree/WordClick';
 function PrivateRoute({ component: Component }) {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
   return currentUser ? <Component /> : <Navigate to="/login" />;
@@ -38,6 +38,7 @@ function App() {
           <Route path="/profile" element={<PrivateRoute component={Profile} />} />
           <Route path="/viewanswer/:answer_id" element={<PrivateRoute component={ViewAnswer} />} />
           <Route path="/friend/:friendId" element={<FriendPage />} />
+          <Route path="/answer/:answer_id" element={<WordClick />} />
         </Routes>
       </div>
     </div>

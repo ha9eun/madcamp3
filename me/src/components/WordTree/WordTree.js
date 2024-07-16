@@ -4,12 +4,16 @@ import WordCloudLib from 'wordcloud';
 import html2canvas from 'html2canvas';
 import { useNavigate } from 'react-router-dom';
 import './WordTree.css';
+import WordClick from './WordClick'; // 팝업 컴포넌트 임포트
 
 function WordTree() {
   const [words, setWords] = useState([]);
   const [initialWords, setInitialWords] = useState([]);
-  const [canvasHeight, setCanvasHeight] = useState(50); // 초기 캔버스 높이 설정
+  const [canvasHeight, setCanvasHeight] = useState(50);
   const [colors, setColors] = useState([]);
+  const [selectedWord, setSelectedWord] = useState(null);
+  const [popupVisible, setPopupVisible] = useState(false);
+
   const canvasRef = useRef(null);
   const captureRef = useRef(null);
   const navigate = useNavigate();
@@ -32,7 +36,7 @@ function WordTree() {
         });
         const data = response.data;
         const filteredData = data.filter(item => Array.isArray(item.keywords) && item.keywords.length === 3);
-        const fetchedWords = filteredData.flatMap(item => item.keywords.map(keyword => [keyword, 5]));
+        const fetchedWords = filteredData.flatMap(item => item.keywords.map(keyword => [keyword, item.answer_id]));
         setWords(fetchedWords);
         const fetchedInitialWords = fetchedWords.slice(0, 3).map(item => item[0]);
         setInitialWords(fetchedInitialWords);
@@ -45,7 +49,6 @@ function WordTree() {
         console.error('Error fetching data:', error);
       }
     };
-
     fetchData();
   }, [navigate]);
 
@@ -77,11 +80,11 @@ function WordTree() {
     const canvas = canvasRef.current;
 
     const options = {
-      list: words,
-      gridSize: 8, // Smaller gridSize for higher resolution
-      weightFactor: 6.8, // Larger weight factor for bigger text
+      list: words.map(word => [word[0], 5]),
+      gridSize: 8,
+      weightFactor: 6.8,
       fontFamily: 'Times, serif',
-      fontStyle: 'normal', // Set font style to normal
+      fontStyle: 'normal',
       color: 'black',
       backgroundColor: '#fff',
       rotateRatio: 0.5,
@@ -89,14 +92,18 @@ function WordTree() {
       drawOutOfBound: false,
       shuffle: false,
       click: (item) => {
-        navigate('/answer/' + item[1], { state: { word: item[0] } });
+        const clickedWord = words.find(word => word[0] === item[0]);
+        if (clickedWord) {
+          setSelectedWord({ word: clickedWord[0], answerId: clickedWord[1] });
+          setPopupVisible(true);
+        }
       },
       ellipticity: 0.6,
       shape: 'circle',
     };
 
     WordCloudLib(canvas, options);
-  }, [navigate, words, canvasHeight]);
+  }, [words, canvasHeight]);
 
   const generateCenterOutIndices = (length) => {
     const indices = [];
@@ -113,7 +120,7 @@ function WordTree() {
         for (let j = 0; j < Math.ceil(i / 2); j++) {
           indices.push(i - j * 2 - 1);
         }
-        for (let j = 0; j < i - Math.ceil(i / 2); j++) {
+        for (let j = 0; j < (i - Math.ceil(i / 2)); j++) {
           indices.push((j + 1) * 2 - 1);
         }
       }
@@ -152,45 +159,105 @@ function WordTree() {
     <div className="wordtree-main" ref={captureRef}>
       <button onClick={captureScreenshot}>Capture</button>
       <div className="wordtree-container">
-        <div style={{ textAlign: 'center', backgroundColor: '#fff', padding: '20px', display: 'inline-block', height: '450px' }}>
-          <div style={{ position: 'relative', width: '600px', margin: '0 auto' }}>
-            <canvas
-              ref={canvasRef}
-              width={1200} // Double the canvas width
-              height={canvasHeight * 2} // 캔버스 높이를 두 배로 설정
-              style={{ position: 'absolute', top: 50, left: 0, width: '600px', height: `${canvasHeight}px` }} // Scale down to fit the container
-            />
-            {initialWords.map((word, index) => (
-              <div
-                key={index}
-                style={{
-                  position: 'absolute',
-                  left: '50%',
-                  top: `${index * 55 + Math.sqrt(Math.max(0, canvasHeight - 100)) * 15 + 110}px`,
-                  transform: 'translateX(-50%) rotate(90deg)',
-                  transformOrigin: 'top 0',
-                  fontSize: '18px',
-                  fontFamily: 'Times, serif',
-                  color: 'black',
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                {word}
-              </div>
-            ))}
-            <img
-              src={randomImageSrc}
-              alt=''
-              onLoad={() => captureScreenshot()} // 이미지가 로드된 후 캡쳐 시도
-              style={{
-                width: '750px',
-                position: 'absolute',
-                left: '50%',
-                top: `${2 * 55 + Math.sqrt(Math.max(0, canvasHeight - 100)) * 15 + 150}px`,
-                transform: 'translateX(-50%)',
-                transformOrigin: 'top 0',
-              }}
-            />
+//         <div style={{ textAlign: 'center', backgroundColor: '#fff', padding: '20px', display: 'inline-block', height: '450px' }}>
+//           <div style={{ position: 'relative', width: '600px', margin: '0 auto' }}>
+//             <canvas
+//               ref={canvasRef}
+//               width={1200} // Double the canvas width
+//               height={canvasHeight * 2} // 캔버스 높이를 두 배로 설정
+//               style={{ position: 'absolute', top: 50, left: 0, width: '600px', height: `${canvasHeight}px` }} // Scale down to fit the container
+//             />
+//             {initialWords.map((word, index) => (
+//               <div
+//                 key={index}
+//                 style={{
+//                   position: 'absolute',
+//                   left: '50%',
+//                   top: `${index * 55 + Math.sqrt(Math.max(0, canvasHeight - 100)) * 15 + 110}px`,
+//                   transform: 'translateX(-50%) rotate(90deg)',
+//                   transformOrigin: 'top 0',
+//                   fontSize: '18px',
+//                   fontFamily: 'Times, serif',
+//                   color: 'black',
+//                   whiteSpace: 'nowrap',
+//                 }}
+//               >
+//                 {word}
+//               </div>
+//             ))}
+//             <img
+//               src={randomImageSrc}
+//               alt=''
+//               onLoad={() => captureScreenshot()} // 이미지가 로드된 후 캡쳐 시도
+//               style={{
+//                 width: '750px',
+//                 position: 'absolute',
+//                 left: '50%',
+//                 top: `${2 * 55 + Math.sqrt(Math.max(0, canvasHeight - 100)) * 15 + 150}px`,
+//                 transform: 'translateX(-50%)',
+//                 transformOrigin: 'top 0',
+//               }}
+//             />
+    <div style={{ textAlign: 'center' }}>
+      {popupVisible && (
+        <WordClick
+          word={selectedWord.word}
+          answerId={selectedWord.answerId}
+          onClose={() => setPopupVisible(false)}
+        />
+      )}
+      <div style={{ position: 'relative', width: '600px', margin: '0 auto' }}>
+        <canvas
+          ref={canvasRef}
+          width={1200}
+          height={canvasHeight * 2}
+          style={{ position: 'absolute', top: 50, left: 0, width: '600px', height: `${canvasHeight}px` }}
+        />
+        {initialWords.map((word, index) => (
+          <div
+            key={index}
+            style={{
+              position: 'absolute',
+              left: '50%',
+              top: `${index * 55 + Math.sqrt(Math.max(0, canvasHeight - 100)) * 15 + 110}px`,
+              transform: 'translateX(-50%) rotate(90deg)',
+              transformOrigin: 'top 0',
+              fontSize: '18px',
+              fontFamily: 'Times, serif',
+              color: 'black',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {word}
+          </div>
+        ))}
+        <img
+          src={randomImageSrc}
+          alt=''
+          style={{
+            width: '750px',
+            position: 'absolute',
+            left: '50%',
+            top: `${2 * 55 + Math.sqrt(Math.max(0, canvasHeight - 100)) * 15 + 150}px`,
+            transform: 'translateX(-50%)',
+            transformOrigin: 'top 0',
+          }}
+        />
+        <div
+          style={{
+            position: 'absolute',
+            left: '50%',
+            top: `${2 * 55 + Math.sqrt(Math.max(0, canvasHeight - 100)) * 15 + 165}px`,
+            transform: 'translateX(-50%)',
+            width: '560px',
+            height: 'auto',
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+          }}
+        >
+          {centerOutColors.map((color, i) => (
+// >>>>>>> main
             <div
               style={{
                 position: 'absolute',
@@ -219,6 +286,17 @@ function WordTree() {
           </div>
         </div>
       </div>
+      {popupVisible && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          zIndex: 999
+        }} />
+      )}
     </div>
   );
 }
