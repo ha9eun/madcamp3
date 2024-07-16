@@ -1,19 +1,58 @@
-import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './WordClick.css';
 
-function WordClick() {
-  const location = useLocation();
-  const navigate = useNavigate();
+function WordClick({ word, answerId, onClose }) {
+  const [answerDetails, setAnswerDetails] = useState(null);
 
-  // 클릭된 단어 정보는 location.state에서 받아옵니다.
-  const { word, frequency } = location.state || { word: '', frequency: 0 };
+  useEffect(() => {
+    const fetchAnswerDetails = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/answers/${answerId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        setAnswerDetails(response.data);
+      } catch (error) {
+        console.error('Error fetching answer details:', error);
+      }
+    };
+    fetchAnswerDetails();
+  }, [answerId]);
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0];
+  };
+
+  if (!answerDetails) {
+    return null;
+  }
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h2>Word Details</h2>
-      <p><strong>Word:</strong> {word}</p>
-      <p><strong>Frequency:</strong> {frequency}</p>
-      <button onClick={() => navigate(-1)}>Back</button>
+    <div className="popup-container">
+      <div className="popup-content">
+        <button className="close-button" onClick={onClose}>X</button>
+        <div className="header">
+          <div className="color-info">
+            <div className="color-code" style={{ backgroundColor: answerDetails.color }}>{answerDetails.color}</div>
+            <div className="word">{word}</div>
+          </div>
+          <div className="color-line" style={{ backgroundColor: answerDetails.color }}></div>
+        </div>
+        <div className="question-section">
+          <div className="date">{formatDate(answerDetails.date)}의 질문</div>
+          <div className="line"></div>
+          <p className="question-text">{answerDetails.question}</p>
+        </div>
+        <div className="answer-section">
+          <div className="date">{formatDate(answerDetails.date)}의 답변</div>
+          <div className="line"></div>
+          <p className="answer-text">{answerDetails.answer}</p>
+        </div>
+      </div>
     </div>
   );
 }
