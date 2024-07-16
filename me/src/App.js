@@ -12,6 +12,7 @@ import Profile from './components/Profile/Profile';
 import Navbar from './components/Navbar';
 import Social from './components/Social/Social';
 import './App.css';
+import ViewAnswer from './components/Questions/ViewAnswer';
 
 
 function PrivateRoute({ component: Component }) {
@@ -35,6 +36,7 @@ function App() {
         <Route path="/wordtree" element={<PrivateRoute component={WordTree} />} />
         <Route path="/social" element={<PrivateRoute component={Social} />} />
         <Route path="/profile" element={<PrivateRoute component={Profile} />} />
+        <Route path="/viewanswer/:answer_id" element={<PrivateRoute component={ViewAnswer} />} />
       </Routes>
     </div>
   );
