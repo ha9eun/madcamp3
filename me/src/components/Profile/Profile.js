@@ -21,7 +21,7 @@ function Profile() {
       try {
         const token = localStorage.getItem('token');
         console.log('token is:', token);
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/me/keywords`, {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/me`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
