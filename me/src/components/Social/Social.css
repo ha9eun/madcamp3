@@ -9,62 +9,78 @@ li, p, h1, h2 {margin: 0;padding: 0;}
 }
 
 .search-container {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 .search-bar {
-  width: 200px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  position:relative;
+    width: 200px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    position: relative;
 }
 
 .results-box {
-  max-height: 50px;
-  width: 220px;
-  background-color: #fff;
-  position: absolute; 
-  right: 0;
+    max-height: 200px; /* 더 많은 결과를 표시하기 위해 높이 증가 */
+    width: 220px;
+    background-color: #fff;
+    position: absolute;
+    right: 0;
+    overflow-y: auto; /* 스크롤바 추가 */
+    z-index: 1000; /* 다른 요소들보다 앞에 보이도록 설정 */
 }
 
 .user-box {
-  padding: 8px;
-  background-color: #e0e0e0;
-  border-bottom: 1px solid #ccc;
-  cursor: pointer;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .user-box:hover {
-  background-color: #d0d0d0;
+    background-color: #f1f1f1;
+}
+
+.user-box p {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.user-id {
+    font-weight: bold;
+    color: #555;
 }
 
 .no-user {
-  padding: 10px;
-  color: #888;
+    padding: 10px;
+    color: #888;
+    text-align: center;
 }
 
 .section-title {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  text-align: left;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: left;
 }
 
 .card-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px;
 }
 
 .card {
-  width: 275px;
-  height: 200px;
-  background-color: #ccc;
-  border-radius: 8px;
+    width: 275px;
+    height: 200px;
+    background-color: #ccc;
+    border-radius: 8px;
 }
