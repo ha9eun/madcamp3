@@ -67,7 +67,7 @@ li, p, h1, h2 {margin: 0;padding: 0;}
     flex: 1 1 calc(20% - 10px); /* 5개씩 표시 */
     max-width: calc(20% - 10px); /* 최대 너비 설정 */
     box-sizing: border-box;
-    padding: 10px;
+    padding: 5px; /* 여백 줄이기 */
     border: 1px solid #ccc;
     border-radius: 8px;
     background-color: #f9f9f9;
@@ -78,16 +78,16 @@ li, p, h1, h2 {margin: 0;padding: 0;}
 }
 
 .answer-box p {
-    margin: 5px 0;
+    margin: 2px 0; /* 여백 줄이기 */
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
 .answer-box p.question {
-    white-space: nowrap; /* 줄 바꿈 없이 한 줄로 표시 */
-    font-size: 12px;
+    white-space: normal; 
+    font-size: 12px; /* 폰트 크기 줄이기 */
     font-weight: bold;
-    overflow: hidden;
+    overflow: -moz-hidden-unscrollable;
     text-overflow: ellipsis; /* 중간 줄임표 */
     display: -webkit-box;
     -webkit-line-clamp: 1;
@@ -96,7 +96,7 @@ li, p, h1, h2 {margin: 0;padding: 0;}
 
 .answer-box p.answer {
     white-space: normal; /* 줄 바꿈 허용 */
-    font-size: 12px;
+    font-size: 12px; /* 폰트 크기 줄이기 */
 }
 
 h2 {

@@ -68,7 +68,7 @@ function Main() {
             answers.map((answer, index) => (
               <div key={index} className="answer-box">
                 <p className="question"><strong>Q</strong> {answer.question}</p>
-                <p className="answer"><strong>답변:</strong> {answer.answer}</p>
+                <p className="answer">{answer.answer}</p>
               </div>
             ))
           ) : (
