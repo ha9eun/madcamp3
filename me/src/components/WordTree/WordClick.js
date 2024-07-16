@@ -1,61 +1,60 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import './WordClick.css';
 
-const WordClick = () => {
-  const { answer_id } = useParams();
-  const location = useLocation();
-  const { word } = location.state;  // URL을 통해 넘겨받은 단어
-  const [answerData, setAnswerData] = useState(null);
+function WordClick({ word, answerId, onClose }) {
+  const [answerDetails, setAnswerDetails] = useState(null);
 
   useEffect(() => {
-    const fetchAnswer = async () => {
+    const fetchAnswerDetails = async () => {
       try {
         const token = localStorage.getItem('token');
-        if (!token) {
-          console.error('Authorization token is required');
-          return;
-        }
-
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/answers/${answer_id}`, {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/answers/${answerId}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
         });
-        console.log(response.data);
-        if (response.status === 200 && response.data) {
-          setAnswerData(response.data);
-        }
-        
+        setAnswerDetails(response.data);
       } catch (error) {
-        console.error('Error fetching answer data:', error);
+        console.error('Error fetching answer details:', error);
       }
     };
+    fetchAnswerDetails();
+  }, [answerId]);
 
-    fetchAnswer();
-  }, [answer_id]);
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0];
+  };
 
-  if (!answerData) {
-    return <div>Loading...</div>;
+  if (!answerDetails) {
+    return null;
   }
 
   return (
-    <div className="answer-popup">
-      <div className="answer-header" style={{ backgroundColor: answerData.color }}>
-        <span className="color-code">{answerData.color}</span>
-        <span className="keyword">{word}</span>
-      </div>
-      <div className="answer-body">
-        <p className="date">{answerData.date}의 질문</p>
-        <hr />
-        <p className="question">{answerData.question}</p>
-        <p className="date">{answerData.date}의 답변</p>
-        <hr />
-        <p className="answer">{answerData.answer}</p>
+    <div className="popup-container">
+      <div className="popup-content">
+        <button className="close-button" onClick={onClose}>X</button>
+        <div className="header">
+          <div className="color-info">
+            <div className="color-code" style={{ backgroundColor: answerDetails.color }}>{answerDetails.color}</div>
+            <div className="word">{word}</div>
+          </div>
+          <div className="color-line" style={{ backgroundColor: answerDetails.color }}></div>
+        </div>
+        <div className="question-section">
+          <div className="date">{formatDate(answerDetails.date)}의 질문</div>
+          <div className="line"></div>
+          <p className="question-text">{answerDetails.question}</p>
+        </div>
+        <div className="answer-section">
+          <div className="date">{formatDate(answerDetails.date)}의 답변</div>
+          <div className="line"></div>
+          <p className="answer-text">{answerDetails.answer}</p>
+        </div>
       </div>
     </div>
   );
-};
+}
 
 export default WordClick;

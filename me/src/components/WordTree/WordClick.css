@@ -1,50 +1,92 @@
-.answer-popup {
-    width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
-  }
-  
-  .answer-header {
+.popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
     display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    border-radius: 10px 10px 0 0;
-  }
-  
-  .color-code {
-    background-color: rgba(0, 0, 0, 0.1);
-    padding: 5px;
-    border-radius: 5px;
-    font-size: 14px;
-  }
-  
-  .keyword {
-    font-weight: bold;
-    font-size: 16px;
-  }
-  
-  .answer-body {
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background: white;
     padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 400px;
+    position: relative;
     text-align: center;
-  }
-  
-  .date {
-    font-size: 14px;
-    color: #666;
-  }
-  
-  .question, .answer {
-    font-size: 18px;
-    margin: 10px 0;
-  }
-  
-  hr {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
     border: none;
-    border-top: 1px solid #ccc;
-    margin: 10px 0;
-  }
-  
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.header {
+    margin-bottom: 20px;
+    text-align: center;
+    position: relative;
+}
+
+.color-info {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+    width: 100%;
+}
+
+.color-code {
+    position: absolute;
+    left: 0;
+    padding: 7px 12px;
+    border-radius: 5px 5px 0 0;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: var(--color); /* Apply the color code */
+}
+
+.word {
+    font-size: 24px;
+    position: relative;
+}
+
+.color-line {
+    height: 5px;
+    width: 100%;
+    margin: 0;
+    background-color: var(--color); /* Apply the color code */
+}
+
+.question-section, .answer-section {
+    margin-bottom: 20px;
+}
+
+.date {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.line {
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 15px;
+    margin: 0;
+}

@@ -2,12 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import WordCloudLib from 'wordcloud';
 import { useNavigate } from 'react-router-dom';
+import WordClick from './WordClick'; // 팝업 컴포넌트 임포트
 
 function WordTree() {
   const [words, setWords] = useState([]);
   const [initialWords, setInitialWords] = useState([]);
   const [canvasHeight, setCanvasHeight] = useState(50);
   const [colors, setColors] = useState([]);
+  const [selectedWord, setSelectedWord] = useState(null);
+  const [popupVisible, setPopupVisible] = useState(false);
   const canvasRef = useRef(null);
   const navigate = useNavigate();
 
@@ -30,13 +33,10 @@ function WordTree() {
         const data = response.data;
 
         const filteredData = data.filter(item => Array.isArray(item.keywords) && item.keywords.length === 3);
-
         const fetchedWords = filteredData.flatMap(item => item.keywords.map(keyword => [keyword, item.answer_id]));
         setWords(fetchedWords);
-
         const fetchedInitialWords = fetchedWords.slice(0, 3).map(item => item[0]);
         setInitialWords(fetchedInitialWords);
-
         setCanvasHeight(Math.sqrt(fetchedWords.length - 3) * 33);
       } catch (error) {
         if (error.response && error.response.status === 403) {
@@ -46,7 +46,6 @@ function WordTree() {
         console.error('Error fetching data:', error);
       }
     };
-
     fetchData();
   }, [navigate]);
 
@@ -70,7 +69,6 @@ function WordTree() {
         console.error('Error fetching colors:', error);
       }
     };
-
     fetchColors();
   }, [navigate]);
 
@@ -78,7 +76,7 @@ function WordTree() {
     const canvas = canvasRef.current;
 
     const options = {
-      list: words.map(word => [word[0], 5]), // Use the keyword and a fixed weight for word cloud generation
+      list: words.map(word => [word[0], 5]),
       gridSize: 8,
       weightFactor: 6.8,
       fontFamily: 'Times, serif',
@@ -92,7 +90,8 @@ function WordTree() {
       click: (item) => {
         const clickedWord = words.find(word => word[0] === item[0]);
         if (clickedWord) {
-          navigate(`/answer/${clickedWord[1]}`, { state: { word: clickedWord[0] } });
+          setSelectedWord({ word: clickedWord[0], answerId: clickedWord[1] });
+          setPopupVisible(true);
         }
       },
       ellipticity: 0.6,
@@ -100,7 +99,7 @@ function WordTree() {
     };
 
     WordCloudLib(canvas, options);
-  }, [navigate, words, canvasHeight]);
+  }, [words, canvasHeight]);
 
   const generateCenterOutIndices = (length) => {
     const indices = [];
@@ -135,6 +134,13 @@ function WordTree() {
 
   return (
     <div style={{ textAlign: 'center' }}>
+      {popupVisible && (
+        <WordClick
+          word={selectedWord.word}
+          answerId={selectedWord.answerId}
+          onClose={() => setPopupVisible(false)}
+        />
+      )}
       <div style={{ position: 'relative', width: '600px', margin: '0 auto' }}>
         <canvas
           ref={canvasRef}
@@ -198,6 +204,17 @@ function WordTree() {
           ))}
         </div>
       </div>
+      {popupVisible && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          zIndex: 999
+        }} />
+      )}
     </div>
   );
 }
