@@ -8,7 +8,7 @@ import { AnswerContext } from '../../context/AnswerContext';
 function Questions() {
   const [question, setQuestion] = useState('');
   const [preview, setPreview] = useState('');
-  const { selectedAnswerId } = useContext(AnswerContext);
+  const { selectedAnswerId, setSelectedAnswerId } = useContext(AnswerContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -55,6 +55,13 @@ function Questions() {
 
     fetchPreview();
   }, [selectedAnswerId, navigate]);
+
+  useEffect(() => {
+    // 컴포넌트가 마운트될 때 selectedAnswerId 초기화
+    return () => {
+      setSelectedAnswerId(null);
+    };
+  }, [setSelectedAnswerId]);
 
   const handleQuestionClick = () => {
     navigate('/postanswer');
