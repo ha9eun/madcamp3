@@ -112,14 +112,15 @@ function WordTree() {
       drawOutOfBound: false,
       shuffle: false,
       click: (item) => {
-        alert(item[0] + ': ' + item[1]);
+        // alert(item[0] + ': ' + item[1]);
+        navigate('/wordclick', { state: { word: item[0], frequency: item[1] } });
       },
       ellipticity: 0.6,
       shape: 'circle',
     };
 
     WordCloudLib(canvas, options);
-  }, [words, canvasHeight]); // canvasHeight가 변경될 때마다 워드 클라우드를 다시 그림
+  }, [navigate, words, canvasHeight]); // canvasHeight가 변경될 때마다 워드 클라우드를 다시 그림
 
   // 중앙에서부터 양쪽으로 하나씩 추가하는 인덱스 순서를 생성
   const generateCenterOutIndices = (length) => {

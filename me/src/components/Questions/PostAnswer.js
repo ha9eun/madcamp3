@@ -8,7 +8,6 @@ function PostAnswer() {
   const [keywords, setKeywords] = useState(['', '', '']);
   const [color, setColor] = useState('#ffffff');
   const [visibility, setVisibility] = useState('public');
-  const [readyToSubmit, setReadyToSubmit] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [answerId, setAnswerId] = useState(null);
   const navigate = useNavigate();
@@ -54,22 +53,9 @@ function PostAnswer() {
   const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GOOGLE_API_KEY);
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-  async function run() {
-
-    const prompt = "Extract three keywords from the following text. Just give me the Korean keywords without any explanation, as 'key1, key2, key3'"
-
-    const result = await model.generateContent(`${prompt} ${answer}`);
-    const response = result.response;
-    const text = response.text();
-    console.log(text);
-    const textarray = text.split(',').map(keyword => keyword.trim());
-    setKeywords(textarray);
-  }
-
-  const handleSubmit = useCallback(async () => {
+  const handleSubmit = useCallback(async (newKeywords) => {
     const token = localStorage.getItem('token');
-    setReadyToSubmit(false);
-    console.log(keywords);
+    console.log(newKeywords);
 
     try {
       const url = `${process.env.REACT_APP_API_URL}/answers${isEdit ? `/${answerId}` : ''}`;
@@ -82,7 +68,7 @@ function PostAnswer() {
           answer,
           color,
           visibility,
-          keywords,
+          keywords: newKeywords,
         },
         headers: {
           Authorization: `Bearer ${token}`
@@ -103,13 +89,26 @@ function PostAnswer() {
       console.error('Error submitting answer:', error);
       alert('There was an error submitting your answer.');
     }
-  }, [answer, color, visibility, keywords, isEdit, answerId, navigate]);
+  }, [answer, color, visibility, isEdit, answerId, navigate]);
 
-  useEffect(() => {
-    if (readyToSubmit) {
-      handleSubmit();
-    }
-  }, [keywords, readyToSubmit, handleSubmit]);
+  const run = useCallback(async () => {
+    const prompt = "Extract three keywords from the following text. Just give me the Korean keywords without any explanation, as 'key1, key2, key3'"
+
+    const result = await model.generateContent(`${prompt} ${answer}`);
+    const response = result.response;
+    const text = await response.text();
+    const textarray = text.split(',').map(keyword => keyword.trim());
+    console.log(textarray);
+    setKeywords(textarray);
+
+    // 키워드 설정이 완료된 후 handleSubmit 호출
+    handleSubmit(textarray);
+  }, [answer, model, handleSubmit]);
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    await run();
+  };
 
   const handleAnswerChange = (e) => {
     setAnswer(e.target.value);
@@ -121,12 +120,6 @@ function PostAnswer() {
 
   const toggleVisibility = () => {
     setVisibility((prev) => (prev === 'public' ? 'private' : 'public'));
-  };
-
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-    await run();
-    setReadyToSubmit(true);
   };
 
   return (
