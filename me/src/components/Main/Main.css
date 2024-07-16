@@ -1,5 +1,9 @@
 li, p, h1, h2 {margin: 0;padding: 0;}
-
+/* Link 스타일을 제거하기 위한 CSS 클래스 추가 */
+.link-no-style {
+    text-decoration: none;
+    color: inherit; /* 부모 요소의 색상을 상속받도록 설정 */
+  }
 .main {
     width: 100%;
     max-width: 900px;

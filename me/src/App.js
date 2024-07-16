@@ -13,7 +13,7 @@ import Navbar from './components/Navbar';
 import Social from './components/Social/Social';
 import './App.css';
 import ViewAnswer from './components/Questions/ViewAnswer';
-
+import FriendPage from './components/Social/FriendPage';
 
 function PrivateRoute({ component: Component }) {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -37,6 +37,7 @@ function App() {
         <Route path="/social" element={<PrivateRoute component={Social} />} />
         <Route path="/profile" element={<PrivateRoute component={Profile} />} />
         <Route path="/viewanswer/:answer_id" element={<PrivateRoute component={ViewAnswer} />} />
+        <Route path="/friend/:friendId" element={<FriendPage />} />
       </Routes>
     </div>
   );

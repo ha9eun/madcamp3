@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Main.css';
 
@@ -50,7 +51,7 @@ function Main() {
   return (
     <div className="main">
       <div className="question-list">
-        <h1>질문 기록들 <span>기록 더보기{' \u25B6'}</span></h1>
+        <h1>질문 기록들 <span><Link to="/questions" className="link-no-style">기록 더보기{' \u25B6'}</Link></span></h1>
         <div className="today-question">
           {questions[2] ? questions[2].question : '오늘의 질문이 없습니다.'}
         </div>
@@ -77,7 +78,7 @@ function Main() {
         </div>
       </div>
       <div className="random-trees">
-        <h3>이웃 나무들 <span>나무 더보기{' \u25B6'}</span></h3>
+        <h3>이웃 나무들 <span><Link to="/social" className="link-no-style">나무 더보기{' \u25B6'}</Link></span></h3>
         <div className="tree-container">
           <div className="tree-box">
           </div>
