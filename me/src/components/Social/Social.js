@@ -10,6 +10,8 @@ function Social() {
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [question, setQuestion] = useState('');
   const [answers, setAnswers] = useState([]);
+  const [following, setFollowing] = useState([]);
+  const [showFollowingPopup, setShowFollowingPopup] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -67,6 +69,25 @@ function Social() {
     fetchFriendsTodayAnswers();
   }, []);
 
+  useEffect(() => {
+    // Fetch following users from the server
+    const fetchFollowing = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/me/following`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        setFollowing(response.data);
+      } catch (error) {
+        console.error('팔로우 목록을 불러오는데 실패했습니다.', error);
+      }
+    };
+
+    fetchFollowing();
+  }, []);
+
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
     if (e.target.value === '') {
@@ -76,8 +97,6 @@ function Social() {
       setFilteredUsers(filtered);
     }
   };
-
-  
 
   const handleUserClick = (userId) => {
     navigate(`/friend/${userId}`);
@@ -108,6 +127,14 @@ function Social() {
     }
   };
 
+  const handleFollowingClick = () => {
+    setShowFollowingPopup(true);
+  };
+
+  const handleClosePopup = () => {
+    setShowFollowingPopup(false);
+  };
+
   return (
     <div className="social-container">
       <div className="questions-header">
@@ -117,14 +144,17 @@ function Social() {
         </div>
       </div>
       <div className="search-container">
-        <input
-          type="text"
-          placeholder="아이디로 검색"
-          value={searchTerm}
-          onChange={handleSearch}
-          className="search-bar"
-        />
-      </div>
+      <span className="following-count" onClick={handleFollowingClick}>
+        나의 친구 {following.length}명
+      </span>
+      <input
+        type="text"
+        placeholder="아이디로 검색"
+        value={searchTerm}
+        onChange={handleSearch}
+        className="search-bar"
+      />
+    </div>
       <div className="results-box">
         {filteredUsers.length > 0 ? (
           filteredUsers.map((user, index) => (
@@ -166,6 +196,22 @@ function Social() {
           )}
         </div>
       </div>
+
+      {showFollowingPopup && (
+        <div className="popup-overlay" onClick={handleClosePopup}>
+          <div className="popup" onClick={e => e.stopPropagation()}>
+            <h2>친구들</h2>
+            <div className="following-list">
+              {following.map((user, index) => (
+                <div key={index} className="user-box" onClick={() => handleUserClick(user.following_id)}>
+                  <p>{user.nickname}</p>
+                </div>
+              ))}
+            </div>
+            <button className="close-popup" onClick={handleClosePopup}>닫기</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
