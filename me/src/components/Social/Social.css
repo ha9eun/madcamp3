@@ -21,7 +21,7 @@ li, p, h1, h2 {margin: 0;padding: 0;}
   }
   
   .questions-header .question-box {
-    background-color: #f0f0f0;
+    background-color: #e9eeee;
     padding: 20px;
     border-radius: 8px;
     text-align: center;
@@ -110,12 +110,15 @@ li, p, h1, h2 {margin: 0;padding: 0;}
     display: flex;
     flex-direction: column;
     gap: 20px;
+    align-items: center;
   }
   
   .answer-box {
+    width: 910px;
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
+    text-align: left;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
@@ -126,7 +129,7 @@ li, p, h1, h2 {margin: 0;padding: 0;}
   
   .answer-box .nickname {
     font-weight: bold;
-    color: #007bff;
+    color: #000000;
   }
   
   .answer-details {
@@ -144,6 +147,7 @@ li, p, h1, h2 {margin: 0;padding: 0;}
   
   .keywords {
     display: flex;
+    padding-top: 5px;
     gap: 10px;
     flex-wrap: wrap;
   }

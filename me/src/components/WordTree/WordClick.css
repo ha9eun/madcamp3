@@ -44,12 +44,13 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 0;
-    width: 100%;
+    width: 50%;
 }
 
 .color-code {
     position: absolute;
     left: 0;
+    margin-top: 32px;
     padding: 7px 12px;
     border-radius: 5px 5px 0 0;
     color: white;
@@ -74,6 +75,18 @@
     margin-bottom: 20px;
 }
 
+.click-text {
+    font-size: 13pt;
+    font-weight: 400;
+    margin: auto;
+    text-align: center;
+    color: rgb(70, 70, 70);
+    /* margin-right: 10px; */
+    margin-top: 0px;
+    margin-bottom: 30px;
+    line-height: 2.5;
+}
+
 .date {
     font-size: 16px;
     font-weight: bold;
@@ -82,7 +95,7 @@
 
 .click-line {
     width: 100%;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #3f3f3f;
     margin-bottom: 10px;
 }
 
