@@ -144,17 +144,17 @@ function Social() {
         </div>
       </div>
       <div className="search-container">
-        <input
-          type="text"
-          placeholder="아이디로 검색"
-          value={searchTerm}
-          onChange={handleSearch}
-          className="search-bar"
-        />
-        <span className="following-count" onClick={handleFollowingClick}>
-          팔로우 {following.length}명
-        </span>
-      </div>
+      <span className="following-count" onClick={handleFollowingClick}>
+        나의 친구 {following.length}명
+      </span>
+      <input
+        type="text"
+        placeholder="아이디로 검색"
+        value={searchTerm}
+        onChange={handleSearch}
+        className="search-bar"
+      />
+    </div>
       <div className="results-box">
         {filteredUsers.length > 0 ? (
           filteredUsers.map((user, index) => (
@@ -200,7 +200,7 @@ function Social() {
       {showFollowingPopup && (
         <div className="popup-overlay" onClick={handleClosePopup}>
           <div className="popup" onClick={e => e.stopPropagation()}>
-            <h2>팔로우 목록</h2>
+            <h2>친구들</h2>
             <div className="following-list">
               {following.map((user, index) => (
                 <div key={index} className="user-box" onClick={() => handleUserClick(user.following_id)}>

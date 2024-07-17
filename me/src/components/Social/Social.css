@@ -32,9 +32,15 @@ li, p, h1, h2 {margin: 0;padding: 0;}
   /* 검색 컨테이너 스타일 */
   .search-container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between; /* 변경된 부분 */
+    align-items: center; /* 가운데 정렬 */
     margin-top: 20px;
     margin-bottom: 10px;
+  }
+  
+  .following-count {
+    cursor: pointer;
+    font-weight: bold;
   }
   
   .search-bar {
@@ -183,6 +189,7 @@ li, p, h1, h2 {margin: 0;padding: 0;}
     max-height: 80%;
     overflow-y: auto;
     position: relative;
+    font-size: 12px;
   }
   
   .close-popup {
