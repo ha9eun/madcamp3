@@ -24,11 +24,11 @@ function Social() {
   }, []);
 
   useEffect(() => {
-    // Fetch recent answers from the server
-    const fetchRecentAnswers = async () => {
+    // Fetch friends' today answers from the server
+    const fetchFriendsTodayAnswers = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/answers/recent`, {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/friends/today`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -36,14 +36,14 @@ function Social() {
         const answers = response.data; // Assuming the response is an array of answers
         console.log(answers);
         if (answers.length > 0) {
-          setAnswers(answers); // Set the recent answers
+          setAnswers(answers); // Set the friends' today answers
         }
       } catch (error) {
-        console.error('Error fetching recent answers:', error);
+        console.error('Error fetching friends\' today answers:', error);
       }
     };
 
-    fetchRecentAnswers();
+    fetchFriendsTodayAnswers();
   }, []);
 
   const handleSearch = (e) => {
@@ -58,6 +58,32 @@ function Social() {
 
   const handleUserClick = (userId) => {
     navigate(`/friend/${userId}`);
+  };
+
+  const handleLike = async (answerId, liked) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (liked) {
+        await axios.delete(`${process.env.REACT_APP_API_URL}/likes`, {
+          data: { answer_id: answerId },
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+      } else {
+        await axios.post(`${process.env.REACT_APP_API_URL}/likes`, { answer_id: answerId }, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+      }
+      // Update the answers state
+      setAnswers(prevAnswers => prevAnswers.map(answer =>
+        answer.answer_id === answerId ? { ...answer, liked: !liked } : answer
+      ));
+    } catch (error) {
+      console.error('Error toggling like:', error);
+    }
   };
 
   return (
@@ -84,32 +110,32 @@ function Social() {
         )}
       </div>
       <div className="answer-list">
-        <h2>친구의 답변</h2>
+        <h2>친구들의 오늘 답변</h2>
         <div className="answer-container">
           {answers.length > 0 ? (
             answers.map((answer, index) => (
               <div key={index} className="answer-box">
+                <p className="nickname">{answer.nickname}</p>
                 <p className="question"><strong>Q</strong> {answer.question}</p>
                 <p className="answer">{answer.answer}</p>
+                <div className="answer-details">
+                  <span className="color-box" style={{ backgroundColor: answer.color }}></span>
+                  <div className="keywords">
+                    {answer.keywords.map((keyword, idx) => (
+                      <span key={idx} className="keyword">{keyword}</span>
+                    ))}
+                  </div>
+                  <button
+                    className={`like-button ${answer.liked ? 'liked' : ''}`}
+                    onClick={() => handleLike(answer.answer_id, answer.liked)}
+                  >
+                    {answer.liked ? 'Unlike' : 'Like'}
+                  </button>
+                </div>
               </div>
             ))
           ) : (
-            <p>최근 답변이 없습니다.</p>
-          )}
-        </div>
-      </div>
-      <div className="answer-list">
-        <h2>익명의 답변</h2>
-        <div className="answer-container">
-          {answers.length > 0 ? (
-            answers.map((answer, index) => (
-              <div key={index} className="answer-box">
-                <p className="question"><strong>Q</strong> {answer.question}</p>
-                <p className="answer">{answer.answer}</p>
-              </div>
-            ))
-          ) : (
-            <p>최근 답변이 없습니다.</p>
+            <p>친구들의 오늘 답변이 없습니다.</p>
           )}
         </div>
       </div>

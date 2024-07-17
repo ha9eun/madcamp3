@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './ViewAnswer.css';
 
@@ -11,6 +12,8 @@ const ViewAnswer = () => {
   const [updatedAnswer, setUpdatedAnswer] = useState('');
   const [updatedColor, setUpdatedColor] = useState('');
   const [updatedVisibility, setUpdatedVisibility] = useState('');
+  const [keywords, setKeywords] = useState(['', '', '']);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAnswerDetails = async () => {
@@ -43,7 +46,12 @@ const ViewAnswer = () => {
     fetchAnswerDetails();
   }, [answer_id]);
 
-  const handleUpdate = async () => {
+  // Gemini Setting
+  const { GoogleGenerativeAI } = require("@google/generative-ai");
+  const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GOOGLE_API_KEY);
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+  const handleUpdate = useCallback(async (newKeywords) => {
     try {
       const token = localStorage.getItem('token');
       if (!token) {
@@ -56,6 +64,7 @@ const ViewAnswer = () => {
         color: updatedColor,
         answer: updatedAnswer,
         visibility: updatedVisibility,
+        keywords: newKeywords,
       }, 
       {
         headers: {
@@ -72,6 +81,34 @@ const ViewAnswer = () => {
     } catch (err) {
       setError(err.response?.data?.message || 'An error occurred while updating the answer');
     }
+  }, [answerDetails, updatedAnswer, updatedColor, updatedVisibility, answer_id]);
+
+  const run = useCallback(async () => {
+    const prompt = "Extract three keywords from the following text. Just give me the Korean keywords without any explanation, as 'key1, key2, key3'"
+    console.log(`Prompt: ${prompt} ${updatedAnswer}`);
+    try {
+      const result = await model.generateContent(`${prompt} ${updatedAnswer}`);
+      const response = result.response;
+      const text = await response.text();
+      const textarray = text.split(',').map(keyword => keyword.trim());
+      console.log(textarray);
+      setKeywords(textarray);
+
+      // 키워드 설정이 완료된 후 handleUpdate 호출
+      handleUpdate(textarray);
+    } catch (error) {
+      if (error.message.includes('SAFETY')) {
+        console.error('SAFETY error occurred:', error);
+        alert('안전하지 않은 응답이 생성되었습니다. 다른 텍스트를 시도해주세요.');
+      } else {
+        console.error('Error generating keywords:', error);
+      }
+    }
+  }, [updatedAnswer, model, handleUpdate]);
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    await run();
   };
 
   const toggleVisibility = () => {
@@ -100,13 +137,32 @@ const ViewAnswer = () => {
           {answerDetails.question}
         </div>
       </div>
-
       {isEditing ? (
-        <div className="edit-section">
-          <div className="color-picker">
-            <label>색깔 선택</label>
-            <input type="color" value={updatedColor} onChange={(e) => setUpdatedColor(e.target.value)} />
+        <form onSubmit={handleFormSubmit}>
+          <div className="edit-section">
+            <div className="color-picker">
+              <label>색깔 선택</label>
+              <input type="color" value={updatedColor} onChange={(e) => setUpdatedColor(e.target.value)} />
+            </div>
+            <div className="answer-editor">
+              <textarea 
+                className="answer-textarea" 
+                value={updatedAnswer} 
+                onChange={(e) => setUpdatedAnswer(e.target.value)}
+                placeholder="나 자신에 대해 궁금히 생각해보는 시간입니다. 40자 이상으로 작성해봅시다!"
+              />
+              <span 
+                className="visibility-icon"
+                onClick={toggleVisibility}
+                role="button"
+                aria-label={updatedVisibility === 'public' ? '공개' : '비공개'}
+              >
+                {updatedVisibility === 'public' ? '🌐' : '🔒'}
+              </span>
+              <button className="save-button" type="submit">기록 저장하기</button>
+            </div>
           </div>
+
           <div className="view-answer-editor">
             <textarea 
               className="view-answer-textarea" 
@@ -125,6 +181,8 @@ const ViewAnswer = () => {
             <button className="save-button" onClick={handleUpdate}>기록 저장하기</button>
           </div>
         </div>
+      </form>
+
       ) : (
         <div className="view-section">
           <div className="view-content">
