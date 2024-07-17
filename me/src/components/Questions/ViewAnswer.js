@@ -163,7 +163,7 @@ const ViewAnswer = () => {
             </div>
           </div>
 
-          <div className="view-answer-editor">
+          {/* <div className="view-answer-editor">
             <textarea 
               className="view-answer-textarea" 
               value={updatedAnswer} 
@@ -179,9 +179,8 @@ const ViewAnswer = () => {
               {updatedVisibility === 'public' ? '🌐' : '🔒'}
             </span>
             <button className="save-button" onClick={handleUpdate}>기록 저장하기</button>
-          </div>
-        </div>
-      </form>
+          </div> */}
+        </form>
 
       ) : (
         <div className="view-section">
