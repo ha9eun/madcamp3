@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLock, faLockOpen } from '@fortawesome/free-solid-svg-icons';
 import './PostAnswer.css';
 
 function PostAnswer() {
@@ -168,7 +170,7 @@ function PostAnswer() {
               role="button"
               aria-label={visibility === 'public' ? '공개' : '비공개'}
             >
-              {visibility === 'public' ? '🌐' : '🔒'}
+              <FontAwesomeIcon icon={visibility === 'public' ? faLockOpen : faLock} />
             </span>
             <button className="save-button" type="submit">기록 저장하기</button>
           </div>

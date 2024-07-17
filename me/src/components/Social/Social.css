@@ -1,86 +1,162 @@
 li, p, h1, h2 {margin: 0;padding: 0;}
-
-.social-container {
+  
+  /* Social 컴포넌트 스타일 */
+  .social-container {
     width: 100%;
     max-width: 900px;
     margin: 0 auto;
-    padding-bottom: 0px;
+    padding: 5px 20px 20px 20px;
+    background-color: #fff;
+    border-radius: 10px;
     position: relative;
-}
-
-.search-container {
+  }
+  .questions-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .questions-header h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .questions-header .question-box {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  /* 검색 컨테이너 스타일 */
+  .search-container {
     display: flex;
     justify-content: flex-end;
     margin-top: 20px;
     margin-bottom: 10px;
-}
-
-.search-bar {
+  }
+  
+  .search-bar {
     width: 200px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     position: relative;
-}
-
-.results-box {
-    max-height: 200px; /* 더 많은 결과를 표시하기 위해 높이 증가 */
+  }
+  
+  /* 검색 결과 박스 스타일 */
+  .results-box {
+    max-height: 200px;
     width: 220px;
     background-color: #fff;
     position: absolute;
     right: 0;
-    overflow-y: auto; /* 스크롤바 추가 */
-    z-index: 1000; /* 다른 요소들보다 앞에 보이도록 설정 */
-}
-
-.user-box {
+    overflow-y: auto;
+    z-index: 1000;
+  }
+  
+  .user-box {
     padding: 10px;
-    background-color: #f9f9f9;
     border-bottom: 1px solid #eee;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.user-box:hover {
+  }
+  
+  .user-box:hover {
     background-color: #f1f1f1;
-}
-
-.user-box p {
+  }
+  
+  .user-box p {
     margin: 0;
     font-size: 14px;
     color: #333;
-}
-
-.user-id {
+  }
+  
+  .user-id {
     font-weight: bold;
     color: #555;
-}
-
-.no-user {
+  }
+  
+  .no-user {
     padding: 10px;
     color: #888;
     text-align: center;
-}
-
-.section-title {
+  }
+  
+  /* 섹션 제목 스타일 */
+  .section-title {
     font-size: 24px;
     font-weight: bold;
-    margin-bottom: 10px;
-    text-align: left;
-}
-
-.card-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
     margin-bottom: 20px;
-}
-
-.card {
-    width: 275px;
-    height: 200px;
-    background-color: #ccc;
-    border-radius: 8px;
-}
+    text-align: left;
+  }
+  
+  .answer-list h2 {
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+  
+  /* 답변 리스트 스타일 */
+  .answer-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .answer-box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .answer-box p {
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .answer-box .nickname {
+    font-weight: bold;
+    color: #007bff;
+  }
+  
+  .answer-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .social-color-box {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .keywords {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .keyword {
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+  
+  .social-like-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: rgb(201, 200, 200);
+  }
+  
+  .social-like-button .liked {
+    color: #dc3545;
+  }
