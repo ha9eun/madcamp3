@@ -1,0 +1,83 @@
+li, p, h1, h2 { margin: 0; padding: 0; }
+
+.login-container {
+  display: flex;
+  flex-direction: column; /* 상하로 배치 */
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 0;
+  background-color: #072021; /* 배경 색상 추가 */
+}
+
+.left-content {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* 상단 정렬 */
+  background-color: #072021; /* 배경 색상 추가 */
+  padding: 10px;
+  margin-bottom: 20px; /* 로고와 로그인 박스 사이의 여백 */
+}
+
+.left-content .logo {
+  max-width: 250px;
+  height: auto;
+}
+
+.right-content {
+  display: flex; /* flexbox 추가 */
+  flex-direction: column; /* 세로 정렬 추가 */
+  justify-content: center; /* 세로 중앙 정렬 추가 */
+  align-items: center; /* 가로 중앙 정렬 */
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 300px; /* 정사각형으로 만들기 위한 너비 설정 */
+  height: 300px; /* 정사각형으로 만들기 위한 높이 설정 */
+}
+
+.right-content h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.right-content form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.right-content input {
+  display: block;
+  margin: 10px 0;
+  padding: 10px;
+  width: 80%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.right-content button {
+  padding: 10px 20px;
+  width: 80%;
+  background-color: #072021;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.right-content button:hover {
+  background-color: #45a049;
+}
+
+.right-content a {
+  margin-top: 10px;
+  color: #072021;
+  text-decoration: none;
+}
+
+.right-content a:hover {
+  text-decoration: underline;
+}

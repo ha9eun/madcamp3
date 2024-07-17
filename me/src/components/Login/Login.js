@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
 import '../../App.css';
+import './Login.css';  // 추가: 별도의 CSS 파일을 사용할 경우
 
 function Login() {
   const [userId, setUserId] = useState('');
@@ -18,7 +19,6 @@ function Login() {
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/login`, {
         userId,
-        //password
         password: hashedPassword,
       });
 
@@ -39,30 +39,26 @@ function Login() {
   return (
     <div className="login-container">
       <div className="left-content">
-        <h1>Welcome to Our Service</h1>
-        <p>
-          Here you can provide some information about your service,
-          mission, or anything you want to communicate to your users.
-        </p>
+        <img src="/assets/meLogoforlogin.png" alt="Logo" className="logo" />
       </div>
-      <div className="right-content login">
-        <h2>Login</h2>
+      <div className="right-content">
+        <h2>로그인</h2>
         <form onSubmit={handleLogin}>
           <input
             type="text"
-            placeholder="UserId"
+            placeholder="아이디"
             value={userId}
             onChange={(e) => setUserId(e.target.value)}
           />
           <input
             type="password"
-            placeholder="Password"
+            placeholder="비밀번호"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button type="submit">Login</button>
+          <button type="submit">로그인</button>
         </form>
-        <Link to="/signup">Sign Up</Link>
+        <Link to="/signup">회원가입</Link>
       </div>
     </div>
   );
