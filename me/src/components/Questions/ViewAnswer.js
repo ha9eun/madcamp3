@@ -85,16 +85,25 @@ const ViewAnswer = () => {
 
   const run = useCallback(async () => {
     const prompt = "Extract three keywords from the following text. Just give me the Korean keywords without any explanation, as 'key1, key2, key3'"
+    console.log(`Prompt: ${prompt} ${updatedAnswer}`);
+    try {
+      const result = await model.generateContent(`${prompt} ${updatedAnswer}`);
+      const response = result.response;
+      const text = await response.text();
+      const textarray = text.split(',').map(keyword => keyword.trim());
+      console.log(textarray);
+      setKeywords(textarray);
 
-    const result = await model.generateContent(`${prompt} ${updatedAnswer}`);
-    const response = result.response;
-    const text = await response.text();
-    const textarray = text.split(',').map(keyword => keyword.trim());
-    console.log(textarray);
-    setKeywords(textarray);
-
-    // 키워드 설정이 완료된 후 handleUpdate 호출
-    handleUpdate(textarray);
+      // 키워드 설정이 완료된 후 handleUpdate 호출
+      handleUpdate(textarray);
+    } catch (error) {
+      if (error.message.includes('SAFETY')) {
+        console.error('SAFETY error occurred:', error);
+        alert('안전하지 않은 응답이 생성되었습니다. 다른 텍스트를 시도해주세요.');
+      } else {
+        console.error('Error generating keywords:', error);
+      }
+    }
   }, [updatedAnswer, model, handleUpdate]);
 
   const handleFormSubmit = async (e) => {
@@ -124,31 +133,32 @@ const ViewAnswer = () => {
     <div className="answer-details-container">
       <h2 className="header-title">오늘의 질문 <span className="sub-title">글과 색깔로 답변하기</span></h2>
       <div className="question-box">{answerDetails.question}</div>
-      <form onSubmit={handleFormSubmit}>
       {isEditing ? (
-        <div className="edit-section">
-          <div className="color-picker">
-            <label>색깔 선택</label>
-            <input type="color" value={updatedColor} onChange={(e) => setUpdatedColor(e.target.value)} />
+        <form onSubmit={handleFormSubmit}>
+          <div className="edit-section">
+            <div className="color-picker">
+              <label>색깔 선택</label>
+              <input type="color" value={updatedColor} onChange={(e) => setUpdatedColor(e.target.value)} />
+            </div>
+            <div className="answer-editor">
+              <textarea 
+                className="answer-textarea" 
+                value={updatedAnswer} 
+                onChange={(e) => setUpdatedAnswer(e.target.value)}
+                placeholder="나 자신에 대해 궁금히 생각해보는 시간입니다. 40자 이상으로 작성해봅시다!"
+              />
+              <span 
+                className="visibility-icon"
+                onClick={toggleVisibility}
+                role="button"
+                aria-label={updatedVisibility === 'public' ? '공개' : '비공개'}
+              >
+                {updatedVisibility === 'public' ? '🌐' : '🔒'}
+              </span>
+              <button className="save-button" type="submit">기록 저장하기</button>
+            </div>
           </div>
-          <div className="answer-editor">
-            <textarea 
-              className="answer-textarea" 
-              value={updatedAnswer} 
-              onChange={(e) => setUpdatedAnswer(e.target.value)}
-              placeholder="나 자신에 대해 궁금히 생각해보는 시간입니다. 40자 이상으로 작성해봅시다!"
-            />
-            <span 
-              className="visibility-icon"
-              onClick={toggleVisibility}
-              role="button"
-              aria-label={updatedVisibility === 'public' ? '공개' : '비공개'}
-            >
-              {updatedVisibility === 'public' ? '🌐' : '🔒'}
-            </span>
-            <button className="save-button" type="submit">기록 저장하기</button>
-          </div>
-        </div>
+        </form>
       ) : (
         <div className="view-section">
           <div className="viewcolor-box" style={{ backgroundColor: answerDetails.color }}></div>
@@ -157,7 +167,6 @@ const ViewAnswer = () => {
           <button className="edit-button" onClick={() => setIsEditing(true)}>수정</button>
         </div>
       )}
-      </form>
     </div>
   );
 };
