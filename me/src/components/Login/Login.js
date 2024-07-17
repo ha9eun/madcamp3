@@ -39,7 +39,7 @@ function Login() {
   return (
     <div className="login-container">
       <div className="left-content">
-        <img src="/assets/meLogoforlogin.png" alt="Logo" className="logo" />
+        <img src="/assets/newLogo.png" alt="Logo" className="logo" />
       </div>
       <div className="right-content">
         <h2>로그인</h2>
