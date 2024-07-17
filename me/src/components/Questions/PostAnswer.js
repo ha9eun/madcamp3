@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './PostAnswer.css';
 
 function PostAnswer() {
+  const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
   const [keywords, setKeywords] = useState(['', '', '']);
   const [color, setColor] = useState('#ffffff');
@@ -11,6 +12,24 @@ function PostAnswer() {
   const [isEdit, setIsEdit] = useState(false);
   const [answerId, setAnswerId] = useState(null);
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    // Fetch question from the server
+    const fetchQuestion = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/questions/today`);
+        const question = response.data.question;
+        console.log(response.data.question);
+        if (question.length > 0) {
+          setQuestion(question);
+        }
+      } catch (error) {
+        console.error('Error fetching question:', error);
+      }
+    };
+
+    fetchQuestion();
+  }, []);
 
   useEffect(() => {
     // Fetch existing answer if available
@@ -124,12 +143,17 @@ function PostAnswer() {
 
   return (
     <div className="answer-details-container">
-      <h2 className="header-title">오늘의 질문 <span className="sub-title">글과 색깔로 답변하기</span></h2>
+      <div className="questions-header">
+        <h1>오늘의 질문 <span>글과 색으로 답변하기</span></h1>
+        <div className="question-box">
+          {question}
+        </div>
+      </div>
       <form onSubmit={handleFormSubmit}>
         <div className="edit-section">
           <div className="color-picker">
-            <label>색깔 선택</label>
             <input type="color" value={color} onChange={handleColorChange} />
+            {/* <label htmlFor="colorInput">색 선택하기</label> */}
           </div>
           <div className="answer-editor">
             <textarea 
