@@ -49,7 +49,7 @@ function WordClick({ word, answerId, onClose }) {
         </div>
         <div className="answer-section">
           <div className="date">{formatDate(answerDetails.date)}의 답변</div>
-          <div className="line"></div>
+          <div className="click-line"></div>
           <p className="answer-text">{answerDetails.answer}</p>
         </div>
       </div>

@@ -81,10 +81,12 @@
 }
 
 .navbar {
-  background-color: #282c34;
-  padding: 4vh;
+  /* background-color: #282c34; */
+  background-color: #072021;
+  padding: 2vh 2vw;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .navbar ul {
@@ -95,7 +97,12 @@
 }
 
 .navbar-left {
+  align-items: center;
   display: flex;
+}
+
+.navbar-logo {
+  height: 45px;
 }
 
 .navbar-right {
@@ -105,7 +112,8 @@
 
 .navbar ul li {
   display: inline;
-  margin: 0 10px;
+  font-size: 18px;
+  margin: 0 27px;
 }
 
 .navbar ul li a,
@@ -143,7 +151,7 @@
 
 .app-main {
   width: 100%;
-  background-color: #f0f0f0;
+  background-color: #ffffff;
   padding: 20px;
   flex: 1;
 }

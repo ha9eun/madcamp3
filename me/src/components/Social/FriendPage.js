@@ -106,7 +106,7 @@ function FriendPage() {
         <div className="answers-list">
           {answers.length > 0 ? (
             answers.map((answer, index) => (
-              <div key={index} className="answer-box">
+              <div key={index} className="friend-answer-box">
                 <p className="question">
                   <strong>Q:</strong> {answer.question}
                 </p>

@@ -123,8 +123,8 @@ const ViewAnswer = () => {
         </div>
       ) : (
         <div className="view-section">
-          <div className="color-box" style={{ backgroundColor: answerDetails.color }}></div>
-          <p className="answer-text">{answerDetails.answer}</p>
+          <div className="viewcolor-box" style={{ backgroundColor: answerDetails.color }}></div>
+          <p className="viewanswer-text">{answerDetails.answer}</p>
           <p className="date-text">{formatDate(answerDetails.date)}</p>
           <button className="edit-button" onClick={() => setIsEditing(true)}>수정</button>
         </div>

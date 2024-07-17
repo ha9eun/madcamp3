@@ -58,34 +58,23 @@ function Main() {
         <div className="prev-question">
           {questions[1] ? questions[1].question : '어제의 질문이 없습니다.'}
         </div>
-        <div className="prev-question">
+        <div className="preprev-question">
           {questions[0] ? questions[0].question : '그저께의 질문이 없습니다.'}
         </div>
       </div>
       <div className="answer-list">
-        <h2>답변 기록들</h2>
+        <h2>답변 기록들<span><Link to="/social" className="link-no-style">친구 답변도 보기{' \u25B6'}</Link></span></h2>
         <div className="answer-container">
           {answers.length > 0 ? (
             answers.map((answer, index) => (
               <div key={index} className="answer-box">
-                <p className="question"><strong>Q</strong> {answer.question}</p>
+                <p className="question"><strong>Q. </strong> {answer.question}</p>
                 <p className="answer">{answer.answer}</p>
               </div>
             ))
           ) : (
             <p>최근 답변이 없습니다.</p>
           )}
-        </div>
-      </div>
-      <div className="random-trees">
-        <h3>이웃 나무들 <span><Link to="/social" className="link-no-style">나무 더보기{' \u25B6'}</Link></span></h3>
-        <div className="tree-container">
-          <div className="tree-box">
-          </div>
-          <div className="tree-box">
-          </div>
-          <div className="tree-box">
-          </div>
         </div>
       </div>
     </div>
