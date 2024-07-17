@@ -2,11 +2,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: calc(100vh - 50px); /* 상단 바 높이를 뺀 나머지 부분의 높이를 사용 */
+    height: 600px;
+    /* background-color: #072021; */
+    /* height: calc(100vh - 50px); */
   }
   
   .profile-container {
-    background-color: #fff;
+    background-color: #86afaf;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -16,7 +18,7 @@
   .profile-container h2 {
     text-align: center;
     margin-bottom: 20px;
-    color: #333;
+    color: #ffffff;
   }
   
   .profile-form,
@@ -33,6 +35,7 @@
   }
   
   .form-group label {
+    color: white;
     font-weight: bold;
     display: block; /* 레이블을 블록 요소로 유지 */
     margin-bottom: 5px;
@@ -41,15 +44,19 @@
   
   .form-group input,
   .form-group span {
+    text-align: center;
+    font-size: 16px;
+    color: #537b7b;
     display: block;
     width: 100%; /* 입력 필드와 스팬의 너비를 100%로 설정 */
-    padding: 10px;
-    border: 1px solid #ccc;
+    height: 35px;
+    padding-top: 6px;
+    border: 1px solid #ffffff;
     border-radius: 4px;
   }
   
   .form-group span {
-    background-color: #f9f9f9;
+    background-color: #ffffff;
   }
   
   .error-message {
@@ -72,23 +79,18 @@
     cursor: pointer;
   }
   
-  .btn-save {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
-  .btn-cancel {
-    background-color: #f44336;
-    color: white;
-  }
-  
-  .btn-edit {
-    background-color: #008CBA;
-    color: white;
-    align-self: flex-end;
+  .btn {
+    background-color: transparent;
+    color: #ffffff;
+    border: 1.5px solid #ffffff;
+    margin-top: 25px;
+    padding: 8px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    align-self: center;
   }
   
   .btn:hover {
-    opacity: 0.9;
+    background-color: #ffffff;
+    color: #537b7b;
   }
-  
