@@ -1,44 +1,57 @@
 .answer-details-container {
-    max-width: 900px;
-    margin: 20px auto; /* 좌우에 20px 간격을 줌 */
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
+  width: 100%;
+  max-width: 950px;
+  margin: 0 auto;
+  padding-top: 5px;
   }
   
-  .header-title {
+  /* .header-title {
     text-align: center;
     font-size: 24px;
     margin-bottom: 10px;
     color: #333;
-  }
+  } */
   
-  .sub-title {
+  /* .sub-title {
     font-size: 16px;
     color: #666;
   }
-  
-  .question-box {
+   */
+  /* .question-box {
     background-color: #f0f0f0;
     padding: 20px;
     border-radius: 8px;
     text-align: center;
     font-size: 18px;
     margin-bottom: 20px;
-  }
+  } */
   
   .edit-section {
     display: flex;
     justify-content: space-between;
   }
   
-  .color-picker {
+  /* .color-picker {
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
+  } */
   
-  .answer-editor {
+  .view-section {
+    position: relative;
+    width: 100%;
+    height: 307px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .view-answer-editor {
     position: relative;
     width: 100%;
     max-width: 560px; /* 너비를 줄여서 color picker와 겹치지 않도록 조정 */
@@ -51,7 +64,7 @@
     justify-content: space-between;
   }
   
-  .answer-textarea {
+  .view-answer-textarea {
     width: 100%;
     height: 200px;
     margin-bottom: 20px;
@@ -63,33 +76,44 @@
     resize: none;
   }
   
-  .visibility-icon {
+  /* .visibility-icon {
     position: absolute;
     top: 20px;
     right: 20px;
     cursor: pointer;
     font-size: 20px;
-  }
+  } */
   
+  .view-content {
+    display: grid;
+    grid-template-columns: 1fr 0.1fr;
+    /* margin-top: 20px; */
+    padding: 20px;
+  }
+
   .viewcolor-box {
-    width: 100px;
-    height: 100px;
-    border-radius: 8px;
-    margin-bottom: 20px;
+    width: 120px;
+    height: 150px;
+    /* margin-left: 25px; */
+    /* display: flex; */
+    padding-top: 15px;
+    padding-right: 15px;
+    /* justify-content: flex-end;
+    align-items: flex-end; */
+    text-align: right;
+    color: white;
+    border-radius: 10px;
   }
   
   .viewanswer-text {
+    text-align: left;
+    width: 80%;
     font-size: 16px;
     margin-bottom: 20px;
   }
+
   
-  .date-text {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 20px;
-  }
-  
-  .save-button {
+  /* .save-button {
     background-color: transparent;
     color: #333;
     border: 2px solid #333;
@@ -97,7 +121,7 @@
     border-radius: 20px;
     cursor: pointer;
     align-self: flex-end;
-  }
+  } */
   
   .save-button:hover {
     background-color: #333;

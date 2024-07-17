@@ -131,8 +131,12 @@ const ViewAnswer = () => {
 
   return (
     <div className="answer-details-container">
-      <h2 className="header-title">오늘의 질문 <span className="sub-title">글과 색깔로 답변하기</span></h2>
-      <div className="question-box">{answerDetails.question}</div>
+      <div className="questions-header">
+        <h1>과거의 질문 <span>{formatDate(answerDetails.date)}</span></h1>
+        <div className="question-box">
+          {answerDetails.question}
+        </div>
+      </div>
       {isEditing ? (
         <form onSubmit={handleFormSubmit}>
           <div className="edit-section">
@@ -158,12 +162,35 @@ const ViewAnswer = () => {
               <button className="save-button" type="submit">기록 저장하기</button>
             </div>
           </div>
-        </form>
+
+          <div className="view-answer-editor">
+            <textarea 
+              className="view-answer-textarea" 
+              value={updatedAnswer} 
+              onChange={(e) => setUpdatedAnswer(e.target.value)}
+              placeholder="나 자신에 대해 궁금히 생각해보는 시간입니다. 40자 이상으로 작성해봅시다!"
+            />
+            <span 
+              className="visibility-icon"
+              onClick={toggleVisibility}
+              role="button"
+              aria-label={updatedVisibility === 'public' ? '공개' : '비공개'}
+            >
+              {updatedVisibility === 'public' ? '🌐' : '🔒'}
+            </span>
+            <button className="save-button" onClick={handleUpdate}>기록 저장하기</button>
+          </div>
+        </div>
+      </form>
+
       ) : (
         <div className="view-section">
-          <div className="viewcolor-box" style={{ backgroundColor: answerDetails.color }}></div>
-          <p className="viewanswer-text">{answerDetails.answer}</p>
-          <p className="date-text">{formatDate(answerDetails.date)}</p>
+          <div className="view-content">
+            <div className="viewanswer-text">{answerDetails.answer}</div>
+            <div className="viewcolor-box" style={{ backgroundColor: answerDetails.color }}>
+              {answerDetails.color.toUpperCase()}
+            </div>
+          </div>
           <button className="edit-button" onClick={() => setIsEditing(true)}>수정</button>
         </div>
       )}

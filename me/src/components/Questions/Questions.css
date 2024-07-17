@@ -4,7 +4,7 @@ li, p, h1, h2 {margin: 0;padding: 0;}
     width: 100%;
     max-width: 950px;
     margin: 0 auto;
-    padding-top: 0px;
+    padding-top: 5px;
 }
   
 .questions-header {
@@ -25,10 +25,10 @@ li, p, h1, h2 {margin: 0;padding: 0;}
   
 .question-box {
     /* background-color: #e0e0e0; */
-    background-color: #537b7b;
+    background-color: #e9eeee;
     padding: 20px;
     border-radius: 5px;
-    font-size: 18px;
+    font-size: 19px;
 }
   
 .questions-content {
@@ -84,7 +84,7 @@ li, p, h1, h2 {margin: 0;padding: 0;}
   }
 
   .line {
-    width: 100%;
+    width: 400px;
     border-bottom: 1px solid #000000;
     margin: 10px 0;
   }
@@ -111,7 +111,7 @@ li, p, h1, h2 {margin: 0;padding: 0;}
     margin: auto;
     text-align: center;
     /* margin-right: 10px; */
-    margin-top: 10px;
+    margin-top: 0px;
     margin-bottom: 30px;
     line-height: 2;
   }
