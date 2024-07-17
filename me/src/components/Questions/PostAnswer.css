@@ -73,17 +73,17 @@ li, p, h1, h2 {margin: 0;padding: 0;}
     font-size: 20px;
 }
 
-.color-box {
+/* .color-box {
     width: 100px;
     height: 100px;
     border-radius: 8px;
     margin-bottom: 20px;
-}
+} */
 
-.answer-text {
+/* .answer-text {
     font-size: 16px;
     margin-bottom: 20px;
-}
+} */
 
 .date-text {
     font-size: 14px;

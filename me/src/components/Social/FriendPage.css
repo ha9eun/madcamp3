@@ -42,7 +42,7 @@
     gap: 10px;
   }
   
-  .answer-box {
+  .friend-answer-box {
     flex: 1 1 calc(33% - 10px); /* 3개씩 표시 */
     padding: 20px;
     border: 1px solid #ccc;
@@ -50,7 +50,7 @@
     background-color: #f9f9f9;
   }
   
-  .answer-box p {
+  .friend-answer-box p {
     margin: 5px 0;
   }
   

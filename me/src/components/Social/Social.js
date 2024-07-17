@@ -8,6 +8,7 @@ function Social() {
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const navigate = useNavigate();
+  const [answers, setAnswers] = useState([]);
 
   useEffect(() => {
     // 서버에서 모든 유저를 불러오기
@@ -20,6 +21,29 @@ function Social() {
       }
     };
     fetchUsers();
+  }, []);
+
+  useEffect(() => {
+    // Fetch recent answers from the server
+    const fetchRecentAnswers = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/answers/recent`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        const answers = response.data; // Assuming the response is an array of answers
+        console.log(answers);
+        if (answers.length > 0) {
+          setAnswers(answers); // Set the recent answers
+        }
+      } catch (error) {
+        console.error('Error fetching recent answers:', error);
+      }
+    };
+
+    fetchRecentAnswers();
   }, []);
 
   const handleSearch = (e) => {
@@ -59,20 +83,34 @@ function Social() {
           searchTerm && <div className="no-user">유저가 없습니다.</div>
         )}
       </div>
-      <div className="section">
-        <div className="section-title">친구의 나무</div>
-        <div className="card-grid">
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
+      <div className="answer-list">
+        <h2>친구의 답변</h2>
+        <div className="answer-container">
+          {answers.length > 0 ? (
+            answers.map((answer, index) => (
+              <div key={index} className="answer-box">
+                <p className="question"><strong>Q</strong> {answer.question}</p>
+                <p className="answer">{answer.answer}</p>
+              </div>
+            ))
+          ) : (
+            <p>최근 답변이 없습니다.</p>
+          )}
         </div>
       </div>
-      <div className="section">
-        <div className="section-title">익명의 나무</div>
-        <div className="card-grid">
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
+      <div className="answer-list">
+        <h2>익명의 답변</h2>
+        <div className="answer-container">
+          {answers.length > 0 ? (
+            answers.map((answer, index) => (
+              <div key={index} className="answer-box">
+                <p className="question"><strong>Q</strong> {answer.question}</p>
+                <p className="answer">{answer.answer}</p>
+              </div>
+            ))
+          ) : (
+            <p>최근 답변이 없습니다.</p>
+          )}
         </div>
       </div>
     </div>
