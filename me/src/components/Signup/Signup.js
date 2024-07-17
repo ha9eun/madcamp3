@@ -51,7 +51,7 @@ function Signup() {
   return (
     <div className="signup-container">
       <div className="left-content">
-        <img src="/assets/meLogoforlogin.png" alt="Logo" className="logo" />
+        <img src="/assets/newLogo.png" alt="Logo" className="logo" />
       </div>
       <div className="right-content signup">
         <h2>회원가입</h2>
