@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Social.css';
 
 function Social() {
   const [searchTerm, setSearchTerm] = useState('');
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
-  const navigate = useNavigate();
+  const [question, setQuestion] = useState('');
   const [answers, setAnswers] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // 서버에서 모든 유저를 불러오기
@@ -24,6 +26,27 @@ function Social() {
   }, []);
 
   useEffect(() => {
+    // Fetch today's question from the server
+    const fetchTodayQuestion = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/questions/today`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        if (response.status === 200 && response.data.question) {
+          setQuestion(response.data.question);
+        }
+      } catch (error) {
+        console.error('오늘의 질문을 불러오는데 실패했습니다.', error);
+      }
+    };
+
+    fetchTodayQuestion();
+  }, []);
+
+  useEffect(() => {
     // Fetch friends' today answers from the server
     const fetchFriendsTodayAnswers = async () => {
       try {
@@ -34,10 +57,8 @@ function Social() {
           }
         });
         const answers = response.data; // Assuming the response is an array of answers
-        console.log(answers);
-        if (answers.length > 0) {
-          setAnswers(answers); // Set the friends' today answers
-        }
+        console.log('Fetched answers:', answers); // 응답 데이터를 콘솔에 출력
+        setAnswers(answers); // Set the friends' today answers
       } catch (error) {
         console.error('Error fetching friends\' today answers:', error);
       }
@@ -56,6 +77,8 @@ function Social() {
     }
   };
 
+  
+
   const handleUserClick = (userId) => {
     navigate(`/friend/${userId}`);
   };
@@ -64,14 +87,13 @@ function Social() {
     try {
       const token = localStorage.getItem('token');
       if (liked) {
-        await axios.delete(`${process.env.REACT_APP_API_URL}/likes`, {
-          data: { answer_id: answerId },
+        await axios.delete(`${process.env.REACT_APP_API_URL}/likes/${answerId}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
         });
       } else {
-        await axios.post(`${process.env.REACT_APP_API_URL}/likes`, { answer_id: answerId }, {
+        await axios.post(`${process.env.REACT_APP_API_URL}/likes/${answerId}`, {}, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -88,6 +110,12 @@ function Social() {
 
   return (
     <div className="social-container">
+      <div className="questions-header">
+        <h1>오늘의 질문</h1>
+        <div className="question-box">
+          {question}
+        </div>
+      </div>
       <div className="search-container">
         <input
           type="text"
@@ -115,21 +143,20 @@ function Social() {
           {answers.length > 0 ? (
             answers.map((answer, index) => (
               <div key={index} className="answer-box">
-                <p className="nickname">{answer.nickname}</p>
-                <p className="question"><strong>Q</strong> {answer.question}</p>
+                <p className="nickname" onClick={() => handleUserClick(answer.friend_id)}>{answer.nickname}</p> {/* Add onClick event */}
                 <p className="answer">{answer.answer}</p>
                 <div className="answer-details">
-                  <span className="color-box" style={{ backgroundColor: answer.color }}></span>
+                  <span className="social-color-box" style={{ backgroundColor: answer.color }}></span>
                   <div className="keywords">
                     {answer.keywords.map((keyword, idx) => (
                       <span key={idx} className="keyword">{keyword}</span>
                     ))}
                   </div>
                   <button
-                    className={`like-button ${answer.liked ? 'liked' : ''}`}
+                    className="social-like-button"
                     onClick={() => handleLike(answer.answer_id, answer.liked)}
                   >
-                    {answer.liked ? 'Unlike' : 'Like'}
+                    <FontAwesomeIcon icon="heart" className={answer.liked ? 'liked' : ''} />
                   </button>
                 </div>
               </div>
