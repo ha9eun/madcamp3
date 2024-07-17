@@ -135,8 +135,8 @@ function Profile() {
               />
             </div>
             <div className="button-group">
-              <button type="submit" className="btn btn-save">저장</button>
-              <button type="button" className="btn btn-cancel" onClick={() => setIsEditing(false)}>취소</button>
+            <button type="button" className="btn btn" onClick={() => setIsEditing(false)}>취소</button>
+              <button type="submit" className="btn btn">저장</button>
             </div>
           </form>
         ) : (
@@ -149,7 +149,7 @@ function Profile() {
               <label>닉네임</label>
               <span>{userInfo.nickname}</span>
             </div>
-            <button className="btn btn-edit" onClick={() => setIsEditing(true)}>수정</button>
+            <button className="btn btn" onClick={() => setIsEditing(true)}>수정</button>
           </div>
         )}
       </div>

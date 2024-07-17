@@ -47,9 +47,17 @@ const ViewAnswer = () => {
   }, [answer_id]);
 
   // Gemini Setting
-  const { GoogleGenerativeAI } = require("@google/generative-ai");
+  const { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } = require("@google/generative-ai");
   const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GOOGLE_API_KEY);
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const model = genAI.getGenerativeModel({
+    model: "gemini-1.5-flash",
+    safety_settings: [
+      {
+        // category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+        threshold: HarmBlockThreshold.BLOCK_NONE,
+      },
+    ],
+  });
 
   const handleUpdate = useCallback(async (newKeywords) => {
     try {
@@ -141,14 +149,14 @@ const ViewAnswer = () => {
         <form onSubmit={handleFormSubmit}>
           <div className="edit-section">
             <div className="color-picker">
-              <label>색깔 선택</label>
-              <input type="color" value={updatedColor} onChange={(e) => setUpdatedColor(e.target.value)} />
+            <input type="color" value={updatedColor} onChange={(e) => setUpdatedColor(e.target.value)} />
+              {/* <label htmlFor="colorInput">색 선택하기</label> */}
             </div>
             <div className="answer-editor">
               <textarea 
                 className="answer-textarea" 
-                value={updatedAnswer} 
-                onChange={(e) => setUpdatedAnswer(e.target.value)}
+                value={updatedAnswer}
+                onChange={(e) => setUpdatedAnswer(e.target.value)} 
                 placeholder="나 자신에 대해 궁금히 생각해보는 시간입니다. 40자 이상으로 작성해봅시다!"
               />
               <span 
@@ -162,24 +170,6 @@ const ViewAnswer = () => {
               <button className="save-button" type="submit">기록 저장하기</button>
             </div>
           </div>
-
-          {/* <div className="view-answer-editor">
-            <textarea 
-              className="view-answer-textarea" 
-              value={updatedAnswer} 
-              onChange={(e) => setUpdatedAnswer(e.target.value)}
-              placeholder="나 자신에 대해 궁금히 생각해보는 시간입니다. 40자 이상으로 작성해봅시다!"
-            />
-            <span 
-              className="visibility-icon"
-              onClick={toggleVisibility}
-              role="button"
-              aria-label={updatedVisibility === 'public' ? '공개' : '비공개'}
-            >
-              {updatedVisibility === 'public' ? '🌐' : '🔒'}
-            </span>
-            <button className="save-button" onClick={handleUpdate}>기록 저장하기</button>
-          </div> */}
         </form>
 
       ) : (
@@ -190,7 +180,10 @@ const ViewAnswer = () => {
               {answerDetails.color.toUpperCase()}
             </div>
           </div>
-          <button className="edit-button" onClick={() => setIsEditing(true)}>수정</button>
+          <div className="buttons">
+            <button className="goback-button" onClick={() => navigate('/questions')}>이전</button>
+            <button className="edit-button" onClick={() => setIsEditing(true)}>수정</button>
+          </div>
         </div>
       )}
     </div>
