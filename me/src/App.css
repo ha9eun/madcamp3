@@ -11,7 +11,7 @@
   min-height: 100vh;
 }
 
-.login-container {
+/* .login-container {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -60,9 +60,9 @@
 
 .signup {
   margin-top: 50px;
-}
+} */
 
-.signup input {
+/* .signup input {
   display: block;
   margin: 10px auto;
   padding: 10px;
@@ -78,7 +78,7 @@
   margin-top: 10px;
   color: #61dafb;
   text-decoration: none;
-}
+} */
 
 .navbar {
   /* background-color: #282c34; */
@@ -152,7 +152,7 @@
 .app-main {
   width: 100%;
   background-color: #ffffff;
-  padding: 20px;
+  padding: 0;
   flex: 1;
   /* background-color: #072021; */
 }
