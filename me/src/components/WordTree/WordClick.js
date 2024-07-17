@@ -38,19 +38,19 @@ function WordClick({ word, answerId, onClose }) {
         <div className="header">
           <div className="color-info">
             <div className="color-code" style={{ backgroundColor: answerDetails.color }}>{answerDetails.color}</div>
-            <div className="word">{word}</div>
           </div>
+          <div className="word">" {word} "</div>
           <div className="color-line" style={{ backgroundColor: answerDetails.color }}></div>
         </div>
         <div className="question-section">
           <div className="date">{formatDate(answerDetails.date)}의 질문</div>
-          <div className="line"></div>
-          <p className="question-text">{answerDetails.question}</p>
+          <div className="click-line"></div>
+          <p className="click-text">{answerDetails.question}</p>
         </div>
         <div className="answer-section">
           <div className="date">{formatDate(answerDetails.date)}의 답변</div>
           <div className="click-line"></div>
-          <p className="answer-text">{answerDetails.answer}</p>
+          <p className="click-text">{answerDetails.answer}</p>
         </div>
       </div>
     </div>

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import './FriendPage.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import WordTreeFr from '../WordTree/WordTreeFr';
 
 function FriendPage() {
   const { friendId } = useParams();
@@ -95,27 +97,27 @@ function FriendPage() {
 
   return (
     <div className="friend-page">
-      <div className="friend-header">
-        <div className="friend-tree">친구의 나무 공간</div>
+        <div className="friend-tree">
+          <WordTreeFr userId={friendId} />
+        </div>
+      <div className="friend-answers">
+        <h2>{friendInfo.nickname}님의 공개된 답변들</h2>
         <button onClick={handleFollowToggle} className="follow-button">
           {isFollowing ? '팔로잉' : '팔로우'}
         </button>
-      </div>
-      <div className="friend-answers">
-        <h2>{friendInfo.nickname}님의 공개된 답변들</h2>
-        <div className="answers-list">
+        <div className="answer-container">
           {answers.length > 0 ? (
             answers.map((answer, index) => (
-              <div key={index} className="friend-answer-box">
+              <div key={index} className="answer-box">
                 <p className="question">
                   <strong>Q:</strong> {answer.question}
                 </p>
                 <p className="answer">{answer.answer}</p>
                 <button
                   onClick={() => handleLikeToggle(answer.answer_id, answer.liked)}
-                  className="like-button"
+                  className="social-like-button"
                 >
-                  {answer.liked ? '좋아요 취소' : '좋아요'}
+                  <FontAwesomeIcon icon="heart" className={answer.liked ? 'liked' : ''} />
                 </button>
               </div>
             ))
