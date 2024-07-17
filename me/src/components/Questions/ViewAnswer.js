@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './ViewAnswer.css';
 
@@ -11,6 +12,8 @@ const ViewAnswer = () => {
   const [updatedAnswer, setUpdatedAnswer] = useState('');
   const [updatedColor, setUpdatedColor] = useState('');
   const [updatedVisibility, setUpdatedVisibility] = useState('');
+  const [keywords, setKeywords] = useState(['', '', '']);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAnswerDetails = async () => {
@@ -43,7 +46,12 @@ const ViewAnswer = () => {
     fetchAnswerDetails();
   }, [answer_id]);
 
-  const handleUpdate = async () => {
+  // Gemini Setting
+  const { GoogleGenerativeAI } = require("@google/generative-ai");
+  const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GOOGLE_API_KEY);
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+  const handleUpdate = useCallback(async (newKeywords) => {
     try {
       const token = localStorage.getItem('token');
       if (!token) {
@@ -56,6 +64,7 @@ const ViewAnswer = () => {
         color: updatedColor,
         answer: updatedAnswer,
         visibility: updatedVisibility,
+        keywords: newKeywords,
       }, 
       {
         headers: {
@@ -72,6 +81,25 @@ const ViewAnswer = () => {
     } catch (err) {
       setError(err.response?.data?.message || 'An error occurred while updating the answer');
     }
+  }, [answerDetails, updatedAnswer, updatedColor, updatedVisibility, answer_id]);
+
+  const run = useCallback(async () => {
+    const prompt = "Extract three keywords from the following text. Just give me the Korean keywords without any explanation, as 'key1, key2, key3'"
+
+    const result = await model.generateContent(`${prompt} ${updatedAnswer}`);
+    const response = result.response;
+    const text = await response.text();
+    const textarray = text.split(',').map(keyword => keyword.trim());
+    console.log(textarray);
+    setKeywords(textarray);
+
+    // 키워드 설정이 완료된 후 handleUpdate 호출
+    handleUpdate(textarray);
+  }, [updatedAnswer, model, handleUpdate]);
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    await run();
   };
 
   const toggleVisibility = () => {
@@ -96,7 +124,7 @@ const ViewAnswer = () => {
     <div className="answer-details-container">
       <h2 className="header-title">오늘의 질문 <span className="sub-title">글과 색깔로 답변하기</span></h2>
       <div className="question-box">{answerDetails.question}</div>
-
+      <form onSubmit={handleFormSubmit}>
       {isEditing ? (
         <div className="edit-section">
           <div className="color-picker">
@@ -118,7 +146,7 @@ const ViewAnswer = () => {
             >
               {updatedVisibility === 'public' ? '🌐' : '🔒'}
             </span>
-            <button className="save-button" onClick={handleUpdate}>기록 저장하기</button>
+            <button className="save-button" type="submit">기록 저장하기</button>
           </div>
         </div>
       ) : (
@@ -129,6 +157,7 @@ const ViewAnswer = () => {
           <button className="edit-button" onClick={() => setIsEditing(true)}>수정</button>
         </div>
       )}
+      </form>
     </div>
   );
 };
