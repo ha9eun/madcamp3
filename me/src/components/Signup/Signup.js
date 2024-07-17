@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import CryptoJS from 'crypto-js';
 import axios from 'axios';
+import './Signup.css';
 
 function Signup() {
   const [userId, setUserId] = useState('');
@@ -13,10 +15,12 @@ function Signup() {
     e.preventDefault();
     setErrorMessage(''); // 초기화
 
+    const hashedPassword = CryptoJS.SHA256(password).toString();
+
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/users`, {
         userId,
-        password,
+        password: hashedPassword,
         nickname
       });
       if (response.status === 201) {
@@ -45,30 +49,35 @@ function Signup() {
   };
 
   return (
-    <div className="signup">
-      <h2>Sign Up</h2>
-      <form onSubmit={handleSignup}>
-        <input
-          type="text"
-          placeholder="UserId"
-          value={userId}
-          onChange={(e) => setUserId(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Nickname"
-          value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
-        />
-        <button type="submit">Sign Up</button>
-      </form>
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+    <div className="signup-container">
+      <div className="left-content">
+        <img src="/assets/meLogoforlogin.png" alt="Logo" className="logo" />
+      </div>
+      <div className="right-content signup">
+        <h2>회원가입</h2>
+        <form onSubmit={handleSignup}>
+          <input
+            type="text"
+            placeholder="아이디"
+            value={userId}
+            onChange={(e) => setUserId(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="비밀번호"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="닉네임"
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+          />
+          <button type="submit">회원가입</button>
+        </form>
+        <Link to="/login">로그인</Link>
+      </div>
     </div>
   );
 }

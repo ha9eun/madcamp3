@@ -1,6 +1,6 @@
 li, p, h1, h2 { margin: 0; padding: 0; }
 
-.login-container {
+.signup-container {
   display: flex;
   flex-direction: column; /* 상하로 배치 */
   justify-content: center;
@@ -34,7 +34,7 @@ li, p, h1, h2 { margin: 0; padding: 0; }
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 350px; 
-  height: 300px; /* 정사각형으로 만들기 위한 높이 설정 */
+  height: 350px; /* 정사각형으로 만들기 위한 높이 설정 */
 }
 
 .right-content h2 {
