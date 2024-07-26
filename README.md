@@ -1,4 +1,6 @@
-## ME!
+# ME!
+![newLogo](https://github.com/user-attachments/assets/36260114-46c1-4b3a-b224-39e65c758a83)
+
 
 가끔 자기 자신이 무엇을 좋아하는지, 어떤 순간을 즐기는지 잘 떠오르지 않을 때가 있습니다.
 
@@ -29,9 +31,9 @@
 
 </aside>
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/b9c68210-97a3-49c1-8cf9-20405efc716d/Untitled.png)
+![image](https://github.com/user-attachments/assets/37a0c45c-041e-48d2-889c-41372dd4acc4)
+![image](https://github.com/user-attachments/assets/defb3e35-4dee-4737-a165-508c5e966bae)
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/0cbdc062-083b-42ab-8bd5-fcdab9289ab2/Untitled.png)
 
 ### 홈 화면
 
@@ -40,7 +42,8 @@
 
 </aside>
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/2c180ae9-fab8-4017-8d73-bf9ae215477c/Untitled.png)
+![image](https://github.com/user-attachments/assets/cb92fdee-e406-4d7f-96a2-97b93ade4b20)
+
 
 ---
 
@@ -56,18 +59,20 @@
 
 </aside>
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/2f26d7c6-1960-4c46-b2e5-45df2803d71f/Untitled.png)
+![image](https://github.com/user-attachments/assets/dec84f09-b6ca-445e-90fb-8a012a33c54c)
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/1e09360f-759a-467e-90cb-0bbea3b1b9f2/Untitled.png)
+![image](https://github.com/user-attachments/assets/de8fc942-36e9-49a8-b9b4-69d794510b2f)
+
 
 <aside>
 💡 답변을 작성하고 나면, AI가 핵심 키워드 세 가지를 선정해줍니다. `Gemini API`를 사용하였습니다
 
 </aside>
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/3e93093a-0dba-445e-a9bf-50492b0e5ce9/Untitled.png)
+![image](https://github.com/user-attachments/assets/67c39aa6-3252-4c73-88d7-400fc5a969b5)
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/b3a9e960-ac18-4e4a-92bc-f6f47737a3e9/Untitled.png)
+![image](https://github.com/user-attachments/assets/9a9071ff-dcb8-4f80-83bc-c51c55bddfe7)
+
 
 ---
 
@@ -78,9 +83,10 @@
 
 </aside>
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/12921599-f30c-4139-a74c-93cb0818580f/Untitled.png)
+![image](https://github.com/user-attachments/assets/fb4a1a48-59ca-457e-83d8-a42f90216aae)
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/65ed7b38-842f-44c9-8259-9ecfb76ca33e/Untitled.png)
+![image](https://github.com/user-attachments/assets/c44c0dec-ab55-4e87-af6a-ffa12ab6d38c)
+
 
 ---
 
@@ -91,11 +97,12 @@
 
 </aside>
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/389cf6bd-1368-4be8-b34b-0fc5aca8df5b/Untitled.png)
+![image](https://github.com/user-attachments/assets/4658c008-7ebf-42c5-81ad-f1e19250c566)
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/d1388b28-ffc2-4bf7-8d0a-65dd821328b9/Untitled.png)
+![image](https://github.com/user-attachments/assets/1dcb57ed-3951-4884-a48c-d9283f7bb1f3)
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/58d15b94-adbf-4101-b7e7-da4df22a820e/Untitled.png)
+![image](https://github.com/user-attachments/assets/803b3955-7efa-452e-86e6-5ded0458e990)
+
 
 ---
 
@@ -106,6 +113,7 @@
 
 </aside>
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/94bce3d6-6c03-4a2c-952f-65094f3b97cd/Untitled.png)
+![image](https://github.com/user-attachments/assets/0adb8a6c-c612-4def-bb58-ce152f7c4abc)
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/1dded21f-7c63-427c-9db3-f99b28b13421/Untitled.png)
+![image](https://github.com/user-attachments/assets/7b90e431-a03e-4c48-ae0f-e2a4806aca66)
+
